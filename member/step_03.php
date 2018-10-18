@@ -63,12 +63,12 @@
 							<th scope="col"><span class="icons">*</span>이메일주소</th>
 							<td>
 								<input type="text" class="input-text" name="email1" style="width:138px"/> @ <input type="text" name="email2" class="input-text" style="width:138px"/>
-								<select class="input-sel" name="email3"style="width:160px">
-									<option value="">직접인력</option>
-									<option value="naver.com">naver.com</option>
-									<option value="gmail.com">gmail.com</option>
-									<option value="hanmail.net">hanmail.net</option>
-									<option value="">선택입력</option>
+								<select name="emailChnage" class="input-sel" name="email3"style="width:160px" onChange="getSelectValue(this.form);">
+								<option value="">선택하세요</option>
+								<option value="hanmail.net">hanmail.net</option>
+ 								<option value="naver.com">naver.com</option>
+ 								<option value="gmail.com">gmail.com</option>
+								 <option value="user">직접입력</option>
 								</select>
 							</td>
 						</tr>
@@ -154,7 +154,13 @@
 	</div>
 </div>
 <script>
-
+	function getSelectValue(frm)
+{
+ frm.email2.value = frm.emailChnage.options[frm.emailChnage.selectedIndex].text;
+ if(frm.emailChnage.options[frm.emailChnage.selectedIndex].value == user){
+    frm.email2.value = "";
+ }
+}
  $("#ck").click(function(){
 	 var id = $("input[name='id']").val();
 	 var chk = RegExp(/^[A-Za-z0-9_\.\-]/);

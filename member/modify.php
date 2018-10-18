@@ -68,11 +68,12 @@ echo $te[0];
 							<td>
 								<input type="text" name="email1" class="input-text" style="width:138px" value="<?= $te[0] ?>"/> @ 
 								<input type="text" name="email2" value="<?=$te[1]?>" class="input-text" style="width:138px"/>
-								<select id="sEmail" class="input-sel" style="width:160px" >
-									<option value="0">naver.com</option>
-									<option value="1">gmail.com</option>
-									<option value="2">hanmail.net</option>
-									<option value="3">직접입력</option>
+								<select name="emailChnage" class="input-sel" style="width:160px" onChange="getSelectValue(this.form);" >
+								<option value="">선택하세요</option>
+								<option value="hanmail.net">hanmail.net</option>
+ 								<option value="naver.com">naver.com</option>
+ 								<option value="gmail.com">gmail.com</option>
+								 <option value="user">직접입력</option>
 								</select>
 							</td>
 						</tr> 
@@ -147,16 +148,13 @@ echo $te[0];
 	</div>
 </div>
 <script>
-	//alert($("#sEmail option:selected").val())
-	//var email = $("#sEmail option:selected").val();
-/* 	var a = document.getElementById('sEmail').options[document.getElementById('sEmail').selectedIndex].text;
-	var b = document.querySelector('input[name="email3"]').value;
-	//querySelector('input[name="pwd"]')
-	if(b == ""){
-		b.value = "테스";
-	}
-	alert(b); */
-	
+	function getSelectValue(frm)
+{
+ frm.email2.value = frm.emailChnage.options[frm.emailChnage.selectedIndex].text;
+ if(frm.emailChnage.options[frm.emailChnage.selectedIndex].value == user){
+    frm.email2.value = "";
+ }
+};
 function modify(){
   var pw = document.querySelector('input[name="password"]').value;
   var pwR = document.querySelector('input[name="passwordRe"]').value;
