@@ -139,8 +139,7 @@ echo $te[0];
 				</table>
 
 				<div class="box-btn">
-					<input type="submit" value="정보수정" class="btn-1"/>
-					<!-- <a href="#" class="btn-l">정보수정</a> -->
+					<input type="submit" value="정보수정" id="cssBtn-1" class="btn-1"/>
 				</div>
 				</form>
 			</div>
@@ -165,6 +164,8 @@ function modify(){
    } 
    if(dAddr == ''){
 	   alert("입력값이 올바르지 않습니다.")
+	   return false;
    }
+
 }
 </script>

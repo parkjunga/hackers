@@ -35,6 +35,16 @@ $_SESSION['prev_refere'] = $_SERVER['HTTP_REFERER'];
 <!--[if lte IE 9]> <script src="/js/common/place_holder.js"></script> <![endif]-->
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<style>
+	#cssBtn-1{
+	min-width: 84px;
+    height: 60px;
+    padding: 0 50px;
+    font-size: 16px;
+    line-height: 58px;
+	cursor:pointer;
+	}
+</style>
 </head><body>
 <!-- skip nav -->
 <div id="skip-nav">
@@ -109,15 +119,11 @@ $_SESSION['prev_refere'] = $_SERVER['HTTP_REFERER'];
 						<li class="mnu5">
 							<a href="#">직무교육 안내</a>
 							<ul class="nav-sub-lst">
-								<li><a href="#">서브메뉴</a></li>
-								<li><a href="#">서브메뉴</a></li>
-								<li><a href="#">서브메뉴</a></li>
-								<li><a href="#">서브메뉴</a></li>
-								<li><a href="#">서브메뉴</a></li>
-								<li><a href="#">서브메뉴</a></li>
-								<li><a href="#">서브메뉴</a></li>
-								<li><a href="#">서브메뉴</a></li>
-								<li><a href="#">서브메뉴</a></li>
+								<li><a href="#">해커스HRD소개</a></li>
+								<li><a href="#">사업주훈련</a></li>
+								<li><a href="#">근로자카드</a></li>
+								<li><a href="#">학습안내</a></li>
+								<li><a href="#">수강후기</a></li>
 							</ul>
 						</li>
 						<li class="mnu6">
@@ -150,13 +156,17 @@ $_SESSION['prev_refere'] = $_SERVER['HTTP_REFERER'];
 					<!-- 로그인전 -->
 					<?php
 		             if(isset($_SESSION['id'])){
-						 echo " <a href='/member/logout.php'>로그아웃</a>";
+						 echo " <a href='/member/logout.php'>로그아웃</a>
+						        <a href='/member/index.php?mode=modify'>회원정보수정</a>
+						 ";
 					 }else {
-						 echo " <a href='/member/login.php'>로그인</a>";
+						 echo " <a href='/member/login.php'>로그인</a>
+						 <a href='/member/index.php?mode=step_01'>회원가입</a> 
+						 ";
 					 }
 					?>
-                    <a href="/member/index.php?mode=step_01" >회원가입</a>
-					<a href="#">상담/고객센터</a>
+               <!--  <a href="/member/index.php?mode=step_01" >회원가입</a> -->
+ 					<a href="#">상담/고객센터</a>
 					<!-- 로그인후 -->
 					<!-- <a href="#">로그아웃</a>
 					<a href="#">내정보</a>

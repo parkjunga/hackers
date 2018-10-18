@@ -1,8 +1,7 @@
 <div id="wrap">
 <?php
 include 'header.php';
-?>
-<?php
+
 	switch ($_GET['mode']) {
 		case "step_01" :  
 		         include 'step_01.php';
@@ -24,6 +23,9 @@ include 'header.php';
 				  break;
 		case 'find_pw':
 				  include 'find_pw.php';
+				  break;
+		case 'find_pw_complete':
+				  include 'find_pw_complete.php';
 				  break;
 		case 'modify':
 				  include 'modify.php';
@@ -55,7 +57,7 @@ $(document).ready(function(){
 });
 </script>
 <?php
-include_once 'footer.php';
+include 'footer.php';
 ?>
 </div>
 </body>

@@ -145,7 +145,7 @@
 				</table>
 
 				<div class="box-btn">
-				    <input id="signUp" type="submit" value="회원가입" class="btn-1"/>
+				    <input id="cssBtn-1" type="submit" value="회원가입" class="btn-1 "/>
 					<!-- <a href="#" class="btn-l">회원가입</a> -->
 				</div>
 				</form>
@@ -190,6 +190,7 @@ function check(){
       var getMail = RegExp(/^[A-Za-z0-9_\.\-]/);
 	  var getCheck= RegExp(/^[a-zA-Z0-9]{4,12}$/);
       var getName= RegExp(/^[가-힣]+$/);
+	  var getPass =RegExp(/^(?=.*[a-zA-Z])(?=.*[0-9]).{8,15}/);
 	  var name = $("input[name='name']").val();
 	  var id = $("input[name='id'").val();
 	  var email =$("input[name='email1']").val();
@@ -212,6 +213,7 @@ function check(){
 		 alert("아이디를 확인해주세요.");
 		 return false;
 	 }
+
      
 	  // 이메일 체크 
 	  if(!getMail.test(email)){
@@ -232,7 +234,10 @@ function check(){
 		  alert("비밀번호가 일치 하지 않습니다.");
 		  return false;
 	  }
-
+      if(getPass.test(pw1)){
+		  alert("확인필요");
+		  return false;
+	  }
 
      // 주소 체크 
 	 if(post == "" ){
@@ -243,7 +248,7 @@ function check(){
 		 alert("상세주소를 입력해주세요.");
 		 return false;
 	 }
-    
+	
 /* 	// 수신여부 
 	if(sms){
 		alert("문자체크확인");

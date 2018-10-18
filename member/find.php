@@ -11,8 +11,8 @@ $sql = "select *
         from tb_user 
         where name='$name'
         and id='$id'
-        and phone='$phone'
-         or email ='$email'"; 
+        and (phone='$phone'
+         or email ='$email')"; 
 $result = mysql_query($sql);
 $count = mysql_num_rows($result);
 

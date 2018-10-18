@@ -41,7 +41,7 @@
 			</dl>
 
 			<div class="section-content mt30">
-				<form id="find" method="POST" action="">
+				<form id="findPw" method="POST" action="/member/index.php?mode=find_pw_complete" >
 				<table border="0" cellpadding="0" cellspacing="0" class="tbl-col-join">
 					<caption class="hidden">아이디/비밀번호 찾기 개인정보입력</caption>
 					<colgroup>
@@ -69,7 +69,7 @@
  								<option value="gmail.com">gmail.com</option>
 								 <option value="user">직접입력</option>
 								</select>
-								<input type="submit" id="emailBtn" class="btn-s-tin ml10" value="인증번호 받기" style="cursor:pointer">
+								<input type="button" id="emailBtn" class="btn-s-tin ml10" value="인증번호 받기" style="cursor:pointer">
 							</td>
 						</tr>
 						<tr id="authSmS">
@@ -183,6 +183,8 @@ frm.email2.value = frm.emailChnage.options[frm.emailChnage.selectedIndex].text;
 	}).done(function(result){
 		if(result == 'Y'){
 			alert("일치합니다.");
+			//location.href="/member/index.php?mode=find_pw_complete";
+			$("#findPw").submit();
 		}else{
 			alert("불일치합니다.");
 		}
