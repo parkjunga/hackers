@@ -21,6 +21,9 @@ include 'header.php';
 		case 'find_id':
 				  include 'find_id.php';
 				  break;
+		case 'find_id_complete':
+				  include 'find_id_complete.php';
+				  break;
 		case 'find_pw':
 				  include 'find_pw.php';
 				  break;

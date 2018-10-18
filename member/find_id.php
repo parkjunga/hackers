@@ -41,7 +41,7 @@
 			</dl>
 
 			<div class="section-content mt30">
-				<form id="findId" method="POST" action="">
+				<form id="findId" method="POST" action="/member/index.php?mode=find_id_complete">
 				<table border="0" cellpadding="0" cellspacing="0" class="tbl-col-join">
 					<caption class="hidden">아이디 찾기 개인정보 입력</caption>
 					<colgroup>
@@ -158,6 +158,7 @@ function getSelectValue(frm)
 		alert(result);
 	})
 	}
+	return false;
 })
 
 $("#smsBtn").click(function(){
@@ -172,21 +173,38 @@ $("#smsBtn").click(function(){
 		data:{name:name,phone:phone}
 	}).done(function(result){
 		alert(result);
-	})
+	});
+
+	return false;
 })
 
 $("#confBtn").click(function(){
 	var code = $("input[name='code']").val();
+	var name = $("input[name='name']").val();
+    var p1 = $("input[name='phone1']").val();
+	var p2 = $("input[name='phone2']").val();
+	var p3 = $("input[name='phone3']").val();
+	var name = $("input[name='name']").val();
+    var e1 = $("input[name='email1']").val();
+	var e2 = $("input[name='email2']").val();
+	var email = e1+"@"+e2;
+	var phone = p1 + p2 + p3 ;
 	$.ajax({
 		url:"/member/test.php",
 		type:"POST",
-		data:{code:code}
+		data:{code:code,name:name,phone:phone,email:email}
 	}).done(function(result){
-		if(result == 'Y'){
+		alert(result);
+		var resultS = result.split(':');
+		alert(resultS[0]);
+		 if(resultS[0] == 'Y'){
 			alert("일치합니다.");
+			alert("아이디는 " + resultS[1] + "입니다.");
+			$("#findId").submit();
+			//location.href="/member/index.php?mode=find_id_complete";
 		}else{
 			alert("불일치합니다.");
-		}
+		} 
 	})
 })
 

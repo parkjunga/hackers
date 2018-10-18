@@ -8,14 +8,21 @@ $id=$_POST['id'];
 $name = $_POST['name'];
 $email = $_POST['email'];
 $pw = $_POST['pw'];
+
+// 암호
+
+
+
+
 switch($name && $id){
     case $pw :
-    echo $pw;
-    echo $id;
-    echo $name;
+    $sql = "update tb_user set pw = '$pw' where id='$id' and name ='$name'";
+    $result = mysql_query($sql);
+    echo 'Y';
     break;
-    case $email:
-    $sql = "select * from tb_user where name='$name' and id='$id' and phone='$phone'
+
+    case $email || $phone:
+    $sql = "select * from tb_user where name='$name' and id='$id' and phone='$phone';
      or email ='$email'"; 
     $result = mysql_query($sql);
     $count = mysql_num_rows($result);
