@@ -123,7 +123,7 @@ $_SESSION['prev_refere'] = $_SERVER['HTTP_REFERER'];
 								<li><a href="#">사업주훈련</a></li>
 								<li><a href="#">근로자카드</a></li>
 								<li><a href="#">학습안내</a></li>
-								<li><a href="#">수강후기</a></li>
+								<li><a href="/lecture_board/index.php?mode=list">수강후기</a></li>
 							</ul>
 						</li>
 						<li class="mnu6">
@@ -156,12 +156,9 @@ $_SESSION['prev_refere'] = $_SERVER['HTTP_REFERER'];
 					<!-- 로그인전 -->
 					<?php
 		             if(isset($_SESSION['id'])){
-						 if(isset($_SESSION['gb'])){
-							 echo "<a href='/admin/index.php'>관리자페이지</a>";
-						 }else {
-							echo "<a href='/member/index.php?mode=modify'>회원정보수정</a>";
-						 }
-						 echo " <a href='/member/logout.php'>로그아웃</a>";
+						 echo " <a href='/member/logout.php'>로그아웃</a>
+						        <a href='/member/index.php?mode=modify'>회원정보수정</a>
+						 ";
 					 }else {
 						 echo " <a href='/member/login.php'>로그인</a>
 						 <a href='/member/index.php?mode=step_01'>회원가입</a> 

@@ -152,7 +152,7 @@ frm.email2.value = frm.emailChnage.options[frm.emailChnage.selectedIndex].text;
        var email = e1+"@"+e2;
 	
 
-	// 휴대폰 인증 체크 
+	// 이메일 인증 체크 
 	if(name == '' ){
 	  alert("이름이 입력되지않았습니다.");
 	  return false;
@@ -181,7 +181,8 @@ frm.email2.value = frm.emailChnage.options[frm.emailChnage.selectedIndex].text;
 		type:"POST",
 		data:{code:code}
 	}).done(function(result){
-		if(result == 'Y'){
+		alert(result);
+		if(result == 'Y:'){
 			alert("일치합니다.");
 			//location.href="/member/index.php?mode=find_pw_complete";
 			$("#findPw").submit();

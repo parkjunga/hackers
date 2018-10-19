@@ -15,21 +15,30 @@ $sql = "select * from tb_user where id='$id' and pw='$pwStr'";
 $result = mysql_query($sql);
 //echo $result ;
 $count = mysql_num_rows($result);
-echo $count;
+$row = mysql_fetch_assoc($result);
+/* echo $row['id'];
+echo $row['user_gn'];
+echo $count; */
  if($count == 1){
      $_SESSION['id'] = $id;
      $sId = $_SESSION['id'];
      if(isset($sId)){
-         echo '해당아이디로 로그인하겠습니다.';
+         if($row['user_gb']== 'admin'){
+             $_SESSION['gb'] = $row['user_gb'];
+             echo $_SESSION['gb'];
+             echo '관리자로그인';
+         }else{
+            echo '해당아이디로 로그인하겠습니다.';
          //header("location:".$_SESSION['prev_refere']);
           //header("Location:{$_SESSION['prev_refere']}");
-          echo("<script>location.href='{$_SESSION['prev_refere']}';</script>"); 
-          exit();
+         }
+       echo("<script>location.href='{$_SESSION['prev_refere']}';</script>"); 
+         exit();
      }
 } else if($count == 0){
    echo "<script> alert('로그인정보를 확인해주세요')</script>";
   // header("location:".$_SERVER['HTTP_REFERE']);
-  echo("<script>location.href='/member/login.php';</script>");
+    echo("<script>location.href='/member/login.php';</script>");
    exit();
 }
 

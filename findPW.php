@@ -16,14 +16,14 @@ $pw = $_POST['pw'];
 
 switch($name && $id){
     case $pw :
-    $pwHash = hash("sha256",$pw);
-    $sql = "update tb_user set pw = '$pwHash' where id='$id' and name ='$name'";
+    $sql = "update tb_user set pw = '$pw' where id='$id' and name ='$name'";
     $result = mysql_query($sql);
     echo 'Y';
     break;
 
     case $email || $phone:
-    $sql = "select * from tb_user where name='$name' and id='$id' and (phone='$phone' or email ='$email')"; 
+    $sql = "select * from tb_user where name='$name' and id='$id' and phone='$phone';
+     or email ='$email'"; 
     $result = mysql_query($sql);
     $count = mysql_num_rows($result);
     if($count != 0 ){
