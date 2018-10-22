@@ -18,7 +18,7 @@
 				<li class="tc-brand">관리자가 강의를 등록하는 페이지입니다. </li>
 			</ul>
 		</div>                         
-        <form id="lForm" method="POST" enctype="multipart/form-data"  action="upload.php">
+        <form id="lForm" method="POST" enctype="multipart/form-data"  action="insert.php">
 		<table border="0" cellpadding="0" cellspacing="0" class="tbl-col">
 			<caption class="hidden">강의정보</caption>
 			<colgroup>

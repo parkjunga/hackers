@@ -41,6 +41,7 @@
 			</dl>
 
 			<div class="section-content mt30">
+			<!-- /member/index.php?mode=find_pw_complete-->
 				<form id="findPw" method="POST" action="/member/index.php?mode=find_pw_complete" >
 				<table border="0" cellpadding="0" cellspacing="0" class="tbl-col-join">
 					<caption class="hidden">아이디/비밀번호 찾기 개인정보입력</caption>
@@ -131,7 +132,7 @@ frm.email2.value = frm.emailChnage.options[frm.emailChnage.selectedIndex].text;
 	  alert("아이디가 입력되지않았습니다.");
 	  return false;
 	} else if(p1 == '' || p2 == '' || p3 == ''){
-		alert("확인");
+		alert("핸드폰 번호가 입력되지않았습니다.");
 		return false;
 	} else{
 		$.ajax({
@@ -142,6 +143,7 @@ frm.email2.value = frm.emailChnage.options[frm.emailChnage.selectedIndex].text;
 		alert(result);
 	})
 	}
+	return false;
     });
 
      $("#emailBtn").click(function(){
@@ -171,6 +173,7 @@ frm.email2.value = frm.emailChnage.options[frm.emailChnage.selectedIndex].text;
 		alert(result);
 	})
 	}
+	return false;
     });
 
     // 인증코드 확인 

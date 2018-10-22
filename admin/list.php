@@ -1,19 +1,8 @@
 <?php
 
-$sql = "SELECT * FROM tb_lecture l INNER JOIN tb_category c ON l.category_no = c.category_no";
+$sql = "SELECT * FROM tb_lecture l INNER JOIN tb_category c ON l.category_no = c.category_no order by l.lecture_no desc";
 $result = mysql_query($sql);
 //echo $result;
-while($row=mysql_fetch_row($result)){
-	echo $row[1];
-	echo $row[2];
-	echo $row[3];
-	echo $row[4];
-	echo $row[5];
-	echo $row[6];
-	echo $row[7];
-	echo $row[8];
-	echo '<br/>';
-}
 
 ?> 
  <div id="container" class="container">
@@ -87,17 +76,20 @@ while($row=mysql_fetch_row($result)){
 				</tr>
 				<!-- //set -->
 				<!-- set -->
-				<tr class="bbs-sbj">
-					<td>1</td>
-					<td>CS</td>
-					<td>
-						<a href="/lecture_board/index.php?mode=view">
-							<span class="tc-gray ellipsis_line">조직을 감동시키는 관계의 기술</span>
-						</a>
-					</td>
-					<td class="last">이름</td>
-					<td class="last">15시간</td>
-				</tr>
+
+				<?php
+				while($row=mysql_fetch_row($result)){
+					echo '<tr class="bbs-sbj">';
+					echo '<td>'.$row[0].'</td>';
+					echo '<td>'.$row[8].'</td>';
+					echo '<td><a href="/admin/index.php?mode=view&&lecture_no='.$row[0].'">
+					<span class="tc-gray ellipsis_line">'.$row[2].'</span>
+				    </a></td>';
+					echo '<td class="last">'.$row[6].'</td>';
+					echo '<td class="last">'.$row[3].'시간</td>';
+					echo '<tr/>';
+				}
+				?>
 				<!-- //set -->
 			</tbody>
 		</table>

@@ -1,3 +1,6 @@
+<!-- 에디터 -->
+<script type="text/javascript" src="../../plugin/dist/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript" src="../../plugin/dist/smarteditor2.js" charset="utf-8"></script>
 <div id="container" class="container">
 <?php
 	include 'lnb.php'
@@ -33,6 +36,10 @@
 					<td>
 						<select class="input-sel" style="width:160px">
 							<option value="">분류</option>
+							<option value="0">일반직무</option>
+                            <option value="1">산업직무</option>
+                            <option value="2">공통역량</option>
+                            <option value="3">어학 및 자격증</option>
 						</select>
 						<select class="input-sel ml5" style="width:454px">
 							<option value="">강의명</option>
@@ -99,7 +106,11 @@
 		</table>
 
 		<div class="editor-wrap">
-			에디터영역
+		<form action="/send.jsp" method="post" id="frm">
+    <textarea name="smarteditor" id="smarteditor" rows="10" cols="100" style="width:766px; height:412px;"></textarea>
+    <input type="button" id="savebutton" value="서버전송" />
+</form>
+
 		</div>
 	
 		<div class="box-btn t-r">
@@ -111,3 +122,35 @@
 		
 	</div>
 </div>
+<script>
+	$(function(){
+    //전역변수선언
+    var editor_object = [];
+     
+    nhn.husky.EZCreator.createInIFrame({
+        oAppRef: editor_object,
+        elPlaceHolder: "smarteditor",
+        sSkinURI: "../../plugin/dist/SmartEditor2Skin.html", 
+        htParams : {
+            // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+            bUseToolbar : true,             
+            // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+            bUseVerticalResizer : true,     
+            // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+            bUseModeChanger : true, 
+        }
+    });
+     
+    //전송버튼 클릭이벤트
+    $("#savebutton").click(function(){
+        //id가 smarteditor인 textarea에 에디터에서 대입
+        editor_object.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
+         
+        // 이부분에 에디터 validation 검증
+         
+        //폼 submit
+        $("#frm").submit();
+    })
+})
+
+</script>

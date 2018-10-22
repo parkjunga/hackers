@@ -9,7 +9,7 @@
 			  break;
 		case "modify":
 				include 'modify.php';
-              break;
+			  break;
         default :
               include 'list.php';
          			   
