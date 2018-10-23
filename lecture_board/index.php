@@ -6,6 +6,9 @@
 		case "write" :  
 		         include 'write.php';
 				break;
+		case "insert":
+				include 'insert.php';
+				break;
 /* 		case "list" :  
 				include 'list.php';
 			   break; */

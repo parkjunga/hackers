@@ -1,3 +1,8 @@
+<?php
+ $sql = "SELECT * FROM tb_review r INNER JOIN tb_category c ON r.category_no = c.category_no JOIN tb_user u ON r.id = u.id";
+ $result = mysql_query($sql);
+ 
+?>
 <div id="container" class="container">
 	<?php
 	include 'lnb.php'
@@ -74,22 +79,19 @@
 				</tr>
 				<!-- //set -->
 				<!-- set -->
-				<tr class="bbs-sbj">
-					<td>1</td>
-					<td>CS</td>
-					<td>
-						<a href="/lecture_board/index.php?mode=view">
-							<span class="tc-gray ellipsis_line">수강 강의명 : Beyond Trouble, 조직을 감동시키는 관계의 기술</span>
-							<strong class="ellipsis_line">절대 후회 없는 강의 예요!</strong>
-						</a>
-					</td>
-					<td>
-						<span class="star-rating">
-							<span class="star-inner" style="width:80%"></span>
-						</span>
-					</td>
-					<td class="last">이름</td>
-				</tr>
+				<?php
+				while($row=mysql_fetch_array($result)){
+					echo '<tr class="bbs-sbj">';
+					echo '<td>'.$row['board_no'].'</td>';
+					echo '<td>'.$row['category_title'].'</td>';
+					echo '<td><a href="/lecture_board/index.php?mode=view&&review_no='.$row['board_no'].'">
+					<span class="tc-gray ellipsis_line">'.$row['title'].'</span>
+				    </a></td>';
+					echo '<td class="last">'.$row['satisfy'].'</td>';
+					echo '<td class="last">'.$row['name'].'</td>';
+					echo '<tr/>';
+				}
+				?>
 				<!-- //set -->
 			</tbody>
 		</table>
