@@ -1,6 +1,11 @@
 <div id="container" class="container">
 <?php
-	include 'lnb.php'
+	include 'lnb.php';
+	$no = $_GET['review_no'];
+	// 글번호
+	$sql = "SELECT * FROM tb_review r INNER JOIN tb_lecture l ON r.lecture_no = l.lecture_no INNER JOIN tb_file f ON l.file_no = f.file_no WHERE r.board_no = '$no'";
+	$result = mysql_query($sql);
+	$row = mysql_fetch_array($result);
 	?>
 	<div id="content" class="content">
 		<div class="tit-box-h3">
@@ -20,8 +25,8 @@
 			</colgroup>
 			<tbody>
 				 <tr>
-					<th scope="col">제목</th>
-					<th scope="col" class="user-id">작성자 | idididi**</th>
+					<th scope="col"><?= $row['title'] ?></th>
+					<th scope="col" class="user-id">작성자 | <?= $row['id'] ?></th>
 				 </tr>
 				<tr>
 					<td colspan="2">
@@ -32,16 +37,14 @@
 							</span>
 						</div>
 						
-						절대 후회 없는 강의예요!<br />
-						강의시간도 적당하고 요점만 잘 잡아서 설명해주시네요!<br />
-						조직에서 관리직을 담당하고 계신 분이라면 꼭 추천합니다. <br />
+						<?= $row['contents'] ?>
 					</td>
 				</tr>
 			</tbody>
 		</table>
 		
 		
-		<p class="mb15"><strong class="tc-brand fs16">dlwlsl**님의 수강하신 강의 정보</strong></p>
+		<p class="mb15"><strong class="tc-brand fs16"><?= $row['id'] ?>님의 수강하신 강의 정보</strong></p>
 		
 		<table border="0" cellpadding="0" cellspacing="0" class="tbl-lecture-list">
 			<caption class="hidden">강의정보</caption>
@@ -54,13 +57,13 @@
 				<tr>
 					<td>
 						<a href="#" class="sample-lecture">
-							<img src="http://via.placeholder.com/144x101" alt="" width="144" height="101" />
+							<img src="<?= $row['file_path'] ?>" alt="" width="144" height="101" />
 							<span class="tc-brand">샘플강의 ▶</span>
 						</a>
 					</td>
 					<td class="lecture-txt">
-						<em class="tit mt10">Beyond Trouble, 조직을 감동시키는 관계의 기술</em>
-						<p class="tc-gray mt20">강사: 최환규 | 학습난이도 : 하 | 교육시간: 18시간 (18강)</p>
+						<em class="tit mt10"><?= $row['lecture_title'] ?></em>
+						<p class="tc-gray mt20">강사: <?= $row['name'] ?> | 학습난이도 : <?= $row['lecture_level'] ?> | 교육시간: <?= $row['time'] ?>시간 <!--(18강)--></p>
 					</td>
 					<td class="t-r"><a href="#" class="btn-square-line">강의<br />상세</a></td>
 				</tr>

@@ -1,5 +1,5 @@
 <!-- 에디터 -->
-<script type="text/javascript" src="/plugin/js/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript" src="/nse/nse_files/js/HuskyEZCreator.js" charset="utf-8"></script>
 <div id="container" class="container">
 <?php
 	include 'lnb.php'
@@ -113,7 +113,7 @@
 				nhn.husky.EZCreator.createInIFrame({
    				oAppRef: oEditors,
     			elPlaceHolder: "ir1",
-    			sSkinURI: "/plugin/SmartEditor2Skin.html",
+    			sSkinURI: "/nse/nse_files/SmartEditor2Skin.html",
     			fCreator: "createSEditor2"
 			});
 				function submitContents(elClickedObj) {

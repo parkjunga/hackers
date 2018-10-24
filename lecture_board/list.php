@@ -1,7 +1,29 @@
 <?php
- $sql = "SELECT * FROM tb_review r INNER JOIN tb_category c ON r.category_no = c.category_no JOIN tb_user u ON r.id = u.id";
+ $sql = "SELECT * FROM tb_review r INNER JOIN tb_category c ON r.category_no = c.category_no JOIN tb_user u ON r.id = u.id order by r.board_no desc";
  $result = mysql_query($sql);
+
+ // 페이징 
+ $total = mysql_num_rows($result);
+ $pageSize = 10; 
+ $blockSize = 5;
+
+ $page = ceil($total/$pageSize); // 총 페이지 
+ $block = ceil($page/$blockSize); 
+ $nowBlock = ceil($page/$blockSize); // 현재 위치한 블록 체크 
  
+ $start_p = ($newBlock*$blockSize)-($blockSize-1); 
+
+ if($start_p <= 1){
+	 $start_p = 1;
+ }
+ 
+ $end_p = $nowBlock * $blockSize;
+ if($page <= $end_p){
+	 $end_p = $page;
+ }
+ 
+ $psge = ($_GET['page'])?$_GET['page']:1;
+
 ?>
 <div id="container" class="container">
 	<?php
@@ -99,19 +121,31 @@
 		<div class="box-paging">
 			<a href="#"><i class="icon-first"><span class="hidden">첫페이지</span></i></a>
 			<a href="#"><i class="icon-prev"><span class="hidden">이전페이지</span></i></a>
-			<a href="#" class="active">1</a>
+			<? 
+			for($p=$start_p<=$end_p; $p++){
+			?>	
+			<a href="<?=$PHP_SELF?>?page=<?=$p ?>" class="active"><?=$p?></a>
+		  	<?
+			}	
+			?>
+			<!-- <a href="#" class="active">1</a>
 			<a href="#">2</a>
 			<a href="#">3</a>
 			<a href="#">4</a>
 			<a href="#">5</a>
-			<a href="#">6</a>
+			<a href="#">6</a> -->
 			<a href="#"><i class="icon-next"><span class="hidden">다음페이지</span></i></a>
 			<a href="#"><i class="icon-last"><span class="hidden">마지막페이지</span></i></a>
 		</div>
 
 		<div class="box-btn t-r">
-			<a href="/lecture_board/index.php?mode=write" class="btn-m">후기 작성</a>
+		<a id="btn" href="/lecture_board/index.php?mode=write" class="btn-m">후기 작성</a>
+			<?php
+			if(!$_SESSION['id']){
+				echo '<script> $("#btn").click(function(){ alert("로그인 후 작성 가능합니다."); return false;})</script>';
+			
+			}
+			?>
 		</div>
 	</div>
 </div>
-
