@@ -6,6 +6,7 @@
 	$sql = "SELECT * FROM tb_review r INNER JOIN tb_lecture l ON r.lecture_no = l.lecture_no INNER JOIN tb_file f ON l.file_no = f.file_no WHERE r.board_no = '$no'";
 	$result = mysql_query($sql);
 	$row = mysql_fetch_array($result);
+	echo $row;
 	?>
 	<div id="content" class="content">
 		<div class="tit-box-h3">

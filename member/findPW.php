@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 $_SESSION['code']='123456';
 $code =$_SESSION['code'];

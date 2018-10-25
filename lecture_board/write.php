@@ -1,5 +1,43 @@
 <!-- 에디터 -->
 <script type="text/javascript" src="/nse/nse_files/js/HuskyEZCreator.js" charset="utf-8"></script>
+<script language = "javascript"> 
+//상위 셀렉트로 하위 셀렉트 제어하기
+function showSub(obj) {
+
+	f = document.forms.nse;
+	$.ajax({
+		url:'/lecture_board/select.php',
+		data:{obj:obj}
+	}).done(function(result){
+		alert(result);
+		var s = result.split("%");	
+		alert(s);
+		var html = "";
+		$("#type2").html("");
+		for(var i of s){		
+		var num = i.split("^");
+		alert(num);
+		html += "<option value='"+num[0]+"'>"+num[1]+"</option>";
+		$("#type2").html(html); 
+		}
+	})
+/* 
+    if(obj == 0) {
+
+        f.type2.style.display = "";
+        f.SUB5.style.display = "none";
+
+
+    } else {
+
+        f.type2.style.display = "none";
+        f.SUB5.style.display = "";
+
+     } */
+}
+
+
+</script>
 <div id="container" class="container">
 <?php
 	include 'lnb.php'
@@ -33,16 +71,16 @@
 				<tr>
 					<th scope="col">강의</th>
 					<td>
-						<select name="type" class="input-sel" style="width:160px">
+						<select name="type" class="input-sel" style="width:160px" onChange="showSub(this.options[this.selectedIndex].value);">
 							<option value="">분류</option>
 							<option value="0">일반직무</option>
                             <option value="1">산업직무</option>
                             <option value="2">공통역량</option>
                             <option value="3">어학 및 자격증</option>
 						</select>
-						<select name="type2" class="input-sel ml5" style="width:454px">
+						<select id="type2" name="type2" class="input-sel ml5" style="width:454px">
 							<option value="">강의명</option>
-							<option value="1">값테스트</option>
+							<option value="1">토익준비</option>
 						</select>
 					</td>
 				</tr>

@@ -1,4 +1,5 @@
 <?php
+
 include 'db.php';
 $phone = $_POST['phone1'].$_POST['phone2'].$_POST['phone3'];
 $name = $_POST['name'];

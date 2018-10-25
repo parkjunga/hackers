@@ -9,6 +9,9 @@
 		case "insert":
 				include 'insert.php';
 				break;
+		case "select":
+				include 'select.php';
+				break;
 /* 		case "list" :  
 				include 'list.php';
 			   break; */
