@@ -78,15 +78,15 @@ $result = mysql_query($sql);
 				<!-- set -->
 
 				<?php
-				while($row=mysql_fetch_row($result)){
+				while($row=mysql_fetch_array($result)){
 					echo '<tr class="bbs-sbj">';
-					echo '<td>'.$row[0].'</td>';
-					echo '<td>'.$row[8].'</td>';
-					echo '<td><a href="/admin/index.php?mode=view&&lecture_no='.$row[0].'">
-					<span class="tc-gray ellipsis_line">'.$row[2].'</span>
+					echo '<td>'.$row['lecture_no'].'</td>';
+					echo '<td>'.$row['category_title'].'</td>';
+					echo '<td><a href="/admin/index.php?mode=view&&lecture_no='.$row['lecture_no'].'">
+					<span class="tc-gray ellipsis_line">'.$row['lecture_title'].'</span>
 				    </a></td>';
-					echo '<td class="last">'.$row[6].'</td>';
-					echo '<td class="last">'.$row[3].'시간</td>';
+					echo '<td class="last">'.$row['teacher'].'</td>';
+					echo '<td class="last">'.$row['time'].'시간</td>';
 					echo '<tr/>';
 				}
 				?>
@@ -108,7 +108,7 @@ $result = mysql_query($sql);
 		</div>
 
 		<div class="box-btn t-r">
-			<a href="/admin/index.php?mode=write" class="btn-m">후기 작성</a>
+			<a href="/admin/index.php?mode=write" class="btn-m">강의 등록</a>
 		</div>
 	</div>
 </div>

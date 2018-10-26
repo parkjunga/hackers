@@ -1,12 +1,12 @@
 <?php
 $_GET['lecture_no'];
-echo '테스트중';
+//echo '테스트중';
 $no = $_GET['lecture_no'];
-echo $no;
+//echo $no;
 $sql = "SELECT * FROM tb_lecture l INNER JOIN tb_category c ON l.category_no = c.category_no join tb_file f on l.file_no = f.file_no where l.lecture_no ='$no' ";
 $result = mysql_query($sql);
 $row = mysql_fetch_array($result);
-echo $row['name'];
+//echo $row['teacher'];
 //echo $result;
 
 ?> 
@@ -46,7 +46,7 @@ echo $row['name'];
 					</td>
 					<td colspan="2" class="lecture-txt">
 						<em class="tit mt10"><?= $row['lecture_title'] ?></em>
-						<p class="tc-gray mt20">강사: <?= $row['name']?></p>
+						<p class="tc-gray mt20">강사: <?= $row['teacher']?></p>
 						<p class="tc_gray mt20">학습난이도 : <?= $row['lecture_level'] ?></p>
 						<p class="tc_gray mt20">교육시간 : <?= $row['time'] ?>시간</p>
 					</td>

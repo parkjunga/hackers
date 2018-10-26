@@ -1,20 +1,53 @@
 <?php
 
-// 총 데이터 수 
- $sql = "SELECT * FROM tb_review r INNER JOIN tb_category c ON r.category_no = c.category_no JOIN tb_user u ON r.id = u.id  order by r.board_no desc";
- $result = mysql_query($sql); 
- $total = mysql_num_rows($result); 
- $page = ($_GET['page'])?$_GET['page']:1;
 
  // 검색쿼리
  $type = $_GET['type'];
+ echo $type;
+ echo '<br/>';
+ $type2 = $_GET['type2'];
+ echo $type2;
+ echo '<br/>';
  $keyword = $_GET['keyword'];
- $search = "SELECT * FROM tb_review r INNER JOIN tb_category c ON r.category_no = c.category_no JOIN tb_user u ON r.id = u.id  WHERE c.category_no = '$type' AND (l.lecture_title LIKE '%$keyword%' OR l.name LIKE '%$keyword%') order by r.board_no desc";
- $sResult = mysql_query($search);
- while($sRow = mysql_fetch_array($sResult)){
-	 echo $sRow['lecture_title'];
- };
+ echo $keyword;
+ 
+ $query = "SELECT *
+ FROM `tb_review` r
+ JOIN `tb_lecture` l
+  ON r.`lecture_no` = l.`lecture_no`
+ JOIN `tb_user` u
+  ON r.`id` = u.`id`
+ JOIN `tb_category` c
+  ON r.`category_no` = c.`category_no`";
 
+
+ $where = "WHERE c.category_no = '$type'
+			AND l.lecture_title LIKE '%$keyword%' order by r.board_no desc";
+ 
+ $where2 ="WHERE c.category_no = '$type'
+ AND u.name LIKE '%$keyword%' order by r.board_no desc";
+
+ // 
+
+ if($type != '' ){
+	 if($type2 == 1){
+		$sql =$query.$where;
+	 }else{
+		$sql = $query.$where2;
+	 }
+ }else{
+	 // 총 데이터 수 
+ $sql = $query."order by r.board_no desc";
+ }
+ 
+ $result = mysql_query($sql); 
+ while($sRow = mysql_fetch_array($result)){
+	echo $sRow['lecture_title'];
+};
+ $total = mysql_num_rows($result); 
+ $page = ($_GET['page'])?$_GET['page']:1;
+
+ 
 
  $pageSize = 10; // 페이지당 보여줄 게시글 수 
  $blockSize = 5; // 블록 당 페이지 수
@@ -114,37 +147,25 @@
 					</td>
 					<td class="last">이름</td>
 				</tr>
-				<!-- //set -->
-<!-- 			
-				while($row=mysql_fetch_array($result)){
-					echo '<tr class="bbs-sbj">';
-					echo '<td>'.$row['board_no'].'</td>';
-					echo '<td>'.$row['category_title'].'</td>';
-					echo '<td><a href="/lecture_board/index.php?mode=view&&review_no='.$row['board_no'].'">
-					<span class="tc-gray ellipsis_line">'.$row['title'].'</span>
-				    </a></td>';
-					echo '<td class="last">'.$row['satisfy'].'</td>';
-					echo '<td class="last">'.$row['name'].'</td>';
-					echo '<tr/>';
-				}
-				?>
-				
- -->
 				<!-- set -->
 				<?php
 				// $totalSize는 한페이지당 뿌려줄 데이터 수 
 				$s_point = ($page-1)*$pageSize; 
-				$data = "SELECT * 
-				          FROM tb_review r 
-						  INNER JOIN tb_category c
-						   ON r.category_no = c.category_no 
-						   INNER JOIN tb_user u 
-						   ON r.id = u.id 
-						   INNER JOIN tb_lecture l 
-						   ON r.`lecture_no` = l.`lecture_no` 
-						   order by r.board_no desc
-						    Limit $s_point,$pageSize";
+				if($type != '' ){
+					if($type2 == 1){
+					   $data = $query.$where.' Limit '.$s_point.','.$pageSize;
+					}else{
+						$data = $query.$where2.' Limit '.$s_point.','.$pageSize;
+					}
+				}else{
+					// 총 데이터 수 
+					$data = $query.'order by r.board_no desc Limit '.$s_point.','.$pageSize;
+				}
+				
 				$rst = mysql_query($data);
+				while($sRow = mysql_fetch_array($result)){
+				   echo $sRow['lecture_title'];
+			   };
 				// total은 총 데이터수 
 				for($i=1; $i<=$total; $i++){
 				$row = mysql_fetch_array($rst);
@@ -170,23 +191,26 @@
 				<tr class="bbs-sbj">
 				 	<td><?= $row['board_no']?></td>
 					<td><?= $row['category_title']?></td>
-					<td><a href="/lecture_board/index.php?mode=view&&review_no=<?= $row['board_no']?>" >
+					<td><a href="/lecture_board/index.php?mode=view&&review_no=<?= $row['board_no']?>"  >
 					<span class="tc-gray ellipsis_line">수강 강의명 : <?= $row['lecture_title']?></span>
 					<span class="tc-gray ellipsis_line"><?= $row['title']?></span></a></td>
 					<td class="last"><span class="star-rating">
 							<span class="star-inner" style="width:<?= $star ?>%"></span>
 						</span></td>
 					<td class="last"><?= $row['name']?></td>
-					
+				</tr>	
 				<?
  					if($row == false){
-	 					break;
+						 break;
+						 echo'없다';
+				?>
+				<?
  					}
 				}
 				?>
 				<!-- //set -->
 
-				<tr/>
+				
 			</tbody>
 		</table>
 
@@ -196,7 +220,7 @@
 			<?
 			for($p=$start_p; $p<=$end_p; $p++){
 			?>
-			<a href="<?= $PHP_SELF?>?page=<?=$p?>" ><?=$p?></a>
+			<a id="paging" href="<?= $PHP_SELF?>?page=<?=$p?>" <? 	if($page == $p){ echo 'class="active"';}?> ><?=$p?></a>
 			<?
 			}
 			?>
@@ -222,12 +246,12 @@
 	</div>
 </div>
 <script>
- $("#searchBtn").click(function(){
+/*  $("#searchBtn").click(function(){
 	 var type = $("select[name='type']").val();
 	 if(type == ""){
 		 alert("분류를 선택해주세요");
 		 return false;
 	 }
 	 $("#sForm").submit();
- })
+ }) */
 </script>

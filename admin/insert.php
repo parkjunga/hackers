@@ -7,7 +7,10 @@ $title = $_POST['title'];
 $teacher = $_POST['teacher'];
 $time = $_POST['time'];
 $level = $_POST['level'];
+echo '테스트';
 
+$id = $_POST['id'];
+echo $id;
 echo $teacher;
 
 // 파일 관련 정보
@@ -40,8 +43,8 @@ if(!move_uploaded_file($f_Temp,$url)){
 
 
 $f_sql = "INSERT INTO tb_file
-    (file_name,file_ori_name,file_type,file_path,reg_date,name)VALUES(
-    '$f_new_name','$f_ori_name','$splitN[1]','$url',NOW(),'$teacher')";
+    (file_name,file_ori_name,file_type,file_path,reg_date,id)VALUES(
+    '$f_new_name','$f_ori_name','$splitN[1]','$url',NOW(),'$id')";
 
 $f_result = mysql_query($f_sql);
 echo $f_result;
@@ -54,8 +57,8 @@ echo '확인이 필요 <br />';
 echo $s_key;
 
 $sql = "INSERT INTO tb_lecture(
-    category_no,lecture_title,TIME,lecture_level,file_no,name
-    )VALUES('$type','$title','$time','$level','$s_Key','$teacher')";
+    category_no,lecture_title,TIME,lecture_level,file_no,teacher,id
+    )VALUES('$type','$title','$time','$level','$s_Key','$teacher','$id')";
 $result = mysql_query($sql);
 
 if(!$result){

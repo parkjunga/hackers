@@ -68,7 +68,8 @@
                     <input name="file" type="file"/>
                     <br/>
                     ※ 파일첨부시 웹관련 파일 업로드가 불가합니다. <strong>(ex. .php/.html/.c 등등 )</strong>
-                    </td>
+					</td>
+					<input type="hidden" name="id" value="<?= $_SESSION['id'] ?>">
                 </tr>
 			</tbody>
 		</table>
@@ -92,7 +93,6 @@ $("#lBtn").click(function(){
 		var level =$("select[name='level']").val();
 		var file = $("input[name='file']").val(); 
 		var exe = file.slice(file.indexOf(".")).toLowerCase(); // 확장자분리
-
 		// 유효성 체크 
 
 

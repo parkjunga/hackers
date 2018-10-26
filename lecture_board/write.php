@@ -36,7 +36,8 @@ function showSub(obj) {
         f.type2.style.display = "none";
         f.SUB5.style.display = "";
 
-     } */
+	 } */
+	 
 }
 
 

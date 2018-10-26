@@ -12,7 +12,12 @@
 			WHERE r.board_no = '$no'";
 	$result = mysql_query($sql);
 	$row = mysql_fetch_array($result);
-	echo $row;
+	//echo $row;
+	$cnt = "update tb_review r
+	           set r.cnt = r.cnt+1
+			where r.board_no = '$no'";
+	$rst = mysql_query($cnt);
+	//echo $rst;
 	?>
 	<div id="content" class="content">
 		<div class="tit-box-h3">
@@ -28,22 +33,45 @@
 			<caption class="hidden">수강후기</caption>
 			<colgroup>
 				<col style="*"/>
-				<col style="width:20%"/>
+				<col style="width:50%"/>
 			</colgroup>
 			<tbody>
 				 <tr>
 					<th scope="col"><?= $row['title'] ?></th>
-					<th scope="col" class="user-id">작성자 | <?= $row['id'] ?></th>
+					<th scope="col" class="user-id">등록일 | <?= $row['reg_date'] ?> 조회수 <?= $row['cnt'] ?></th>
 				 </tr>
 				<tr>
 					<td colspan="2">
 						<div class="box-rating">
 							<span class="tit_rating">강의만족도</span>
-							<span class="star-rating">
-								<span class="star-inner" style="width:80%"></span>
+							<?php
+							
+				$star = $row['satisfy'];
+				if($row['satisfy'] == '0'){
+					$star = '0';
+				}
+				else if($row['satisfy'] == '1') {
+					$star = '20';
+				}
+				else if($row['satisfy'] == '2') {
+					$star = '40';
+				}
+				else if($row['satisfy'] == '3') {
+					$star = '60';
+				}
+				else if($row['satisfy'] == '4') {
+					$star = '80';
+				}else if($row['satisfy'] == '5') {
+					$star = '100';
+				} 
+							?>
+					<span class="star-rating">
+								<span class="star-inner" style="width:<?=$star ?>%"></span>
 							</span>
 						</div>
-						
+						<div class="box-rating">
+						<span class="tit_rating">작성자 : <?= $row['id']?></span>
+						</div>
 						<?= $row['contents'] ?>
 					</td>
 				</tr>
@@ -70,7 +98,7 @@
 					</td>
 					<td class="lecture-txt">
 						<em class="tit mt10"><?= $row['lecture_title'] ?></em>
-						<p class="tc-gray mt20">강사: <?= $row['name'] ?> | 학습난이도 : <?= $row['lecture_level'] ?> | 교육시간: <?= $row['time'] ?>시간 <!--(18강)--></p>
+						<p class="tc-gray mt20">강사: <?= $row['teacher'] ?> | 학습난이도 : <?= $row['lecture_level'] ?> | 교육시간: <?= $row['time'] ?>시간 <!--(18강)--></p>
 					</td>
 					<td class="t-r"><a href="#" class="btn-square-line">강의<br />상세</a></td>
 				</tr>
@@ -79,7 +107,7 @@
 
 		<div class="box-btn t-r">
 			<a href="/lecture_board/index.php?mode=list" class="btn-m-gray">목록</a>
-			<a href="/lecture_board/index.php?mode=modify" class="btn-m ml5">수정</a>
+			<a href="/lecture_board/index.php?mode=modify&&review_no=<?= $no ?>" class="btn-m ml5">수정</a>
 			<a href="#" class="btn-m-dark">삭제</a>
 		</div>
 

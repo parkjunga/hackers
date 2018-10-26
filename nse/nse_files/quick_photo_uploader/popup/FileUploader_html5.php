@@ -19,7 +19,7 @@
   	$addName = strtotime(date("Y-m-d H:i:s"));  //현재날짜,시간,분초구하기
   	$milliseconds = round(microtime(true) * 1000);  //밀리초 구하기
  	$addName .= $milliseconds;       //파일이름에 밀리초 추가하기
-  	$file->name = $addName . '_' . $file->name;
+  	$file->name = $addName . '__' . $file->name;
   	//중복방지 코드 끝
 	
 	
