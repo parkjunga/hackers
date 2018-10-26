@@ -9,16 +9,19 @@ function showSub(obj) {
 		url:'/lecture_board/select.php',
 		data:{obj:obj}
 	}).done(function(result){
-		alert(result);
+		//alert(result);
 		var s = result.split("%");	
-		alert(s);
+		//alert(s);
 		var html = "";
 		$("#type2").html("");
-		for(var i of s){		
-		var num = i.split("^");
-		alert(num);
-		html += "<option value='"+num[0]+"'>"+num[1]+"</option>";
-		$("#type2").html(html); 
+		for(var i of s){	
+			if(i != "")	{
+			   var num = i.split("^");
+		       //alert(num);
+		       html += "<option value='"+num[0]+"'>"+num[1]+"</option>";
+		       $("#type2").html(html);		
+			}
+		 
 		}
 	})
 /* 
@@ -40,7 +43,7 @@ function showSub(obj) {
 </script>
 <div id="container" class="container">
 <?php
-	include 'lnb.php'
+	include '../include/lnb.php'
 	?>
 	<div id="content" class="content">
 		<div class="tit-box-h3">

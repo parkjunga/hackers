@@ -7,7 +7,7 @@ $result = mysql_query($sql);
 ?> 
  <div id="container" class="container">
 	<?php
-	include 'adminLnb.php'
+		include '../include/adminLnb.php';
 	?>
 	<div id="content" class="content">
 		<div class="tit-box-h3">

@@ -1,9 +1,15 @@
 <div id="container" class="container">
 <?php
-	include 'lnb.php';
+	include '../include/lnb.php';
 	$no = $_GET['review_no'];
 	// 글번호
-	$sql = "SELECT * FROM tb_review r INNER JOIN tb_lecture l ON r.lecture_no = l.lecture_no INNER JOIN tb_file f ON l.file_no = f.file_no WHERE r.board_no = '$no'";
+	$sql = "SELECT * 
+	        FROM tb_review r 
+			INNER JOIN tb_lecture l 
+			ON r.lecture_no = l.lecture_no 
+			INNER JOIN tb_file f 
+			ON l.file_no = f.file_no 
+			WHERE r.board_no = '$no'";
 	$result = mysql_query($sql);
 	$row = mysql_fetch_array($result);
 	echo $row;

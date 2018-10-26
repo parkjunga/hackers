@@ -22,7 +22,7 @@ echo $row['category_no'];
 
 <div id="container" class="container">
 <?php
-    include 'adminLnb.php';
+	include '../include/adminLnb.php';
 ?>
     
 	<div id="content" class="content">

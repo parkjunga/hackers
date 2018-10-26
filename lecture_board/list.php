@@ -37,7 +37,7 @@
 ?>
 <div id="container" class="container">
 	<?php
-	include 'lnb.php'
+	include '../include/lnb.php';
 	?>
 	<div id="content" class="content">
 		<div class="tit-box-h3">
