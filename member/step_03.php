@@ -225,13 +225,13 @@ function check(){
 	  if(!getMail.test(email)){
         alert("이메일형식에 맞게 입력해주세요");
         $("#mail").val("");
-        $("#mail").focus();
+        $("#mail").focus()
         return false;
       }
 
 	  // 비밀번호 체크 
 	  if(!getCheck.test(pw1)) {
-      alert("형식에 맞춰서 PW를 입력해줘용");
+      alert("비밀번호형식 맞춰서 PW를 입력해주세요");
       $(pw1).val("");
       $(pw1).focus();
       return false;
@@ -240,10 +240,10 @@ function check(){
 		  alert("비밀번호가 일치 하지 않습니다.");
 		  return false;
 	  }
-      if(getPass.test(pw1)){
-		  alert("확인필요");
+   /*    if(getPass.test(pw1)){
+		  alert("비밀번호 유효성을 확인해주세요");
 		  return false;
-	  }
+	  } */
 
      // 주소 체크 
 	 if(post == "" ){

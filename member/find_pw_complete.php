@@ -36,11 +36,11 @@ $phone =$_POST['phone'];
 							<input type="hidden" name="name" value="<?=$name?>"/>
 							<input type="hidden" name="id" value="<?=$id?>"/>
 							<th scope="col">신규 비밀번호 입력</th>
-							<td><input type="text" name="newPw" class="input-text" placeholder="영문자로 시작하는 4~15자의 영문소문자,숫자" style="width:302px" /></td>
+							<td><input type="password" name="newPw" class="input-text" placeholder="영문자로 시작하는 4~15자의 영문소문자,숫자" style="width:302px" /></td>
 						</tr>
 						<tr>
 							<th scope="col">신규 비밀번호 재확인</th>
-							<td><input type="text" name="newPwRe" class="input-text" style="width:302px" /></td>
+							<td><input type="password" name="newPwRe" class="input-text" style="width:302px" /></td>
 						</tr>
 					</tbody>
 				</table>
@@ -73,7 +73,7 @@ $phone =$_POST['phone'];
 		type:"POST",
 		data:{id:id,name:name,pw:pw}
 		}).done(function(result){
-	    alert(result);
+	    //alert(result);
 		if(result == 'Y'){
 			alert("일치합니다.");
 			location.href="/member/index.php";

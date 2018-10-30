@@ -13,7 +13,7 @@
  $dAddr=$_POST['detailAddr'];
  $Rsms = $_POST['sms'];
  $Remail = $_POST{'email'};
- echo $name;
+/*  echo $name;
  echo $id;
  echo $email;
  echo $post;
@@ -21,7 +21,7 @@
  echo $Rsms;
  echo $Remail;
  echo $phone; 
- echo $tel;
+ echo $tel; */
 // 암호화 
 $pwHash = hash("sha256",$pw);
 //echo "암호화 전 : ".$pw."<br/>";
@@ -55,7 +55,7 @@ if(!ereg("([^[:space:]]+)", $name) || ereg("([[:space:]]+)",$name)) {
   exit();
 }
 
-for($i = 0; $i < strlen($name); $i++) {
+/* for($i = 0; $i < strlen($name); $i++) {
   if(ord($name[$i]) <= 0x80) {
   echo "<script>
               alert('이름은 반드시 한글이어야 합니다!!');
@@ -63,13 +63,24 @@ for($i = 0; $i < strlen($name); $i++) {
    </script>";
      exit();
   }
-}
-
+} */
 
  if($pw != $pwR){
    echo "비밀번호를 확인해주세요";
    exit();
  }
+
+ // 이메일 체크 
+ if(!ereg("(^[_0-9a-zA-Z-]+(\.[_0-9a-zA-Z-]+)*@[0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*$)", $email)) {
+  echo "<script>
+              alert('이메일주소가 잘못돼었습니다\n\n정확하게 입력해 주세요!!');
+     history.back(-1);
+   </script>";
+  exit();
+}
+
+
+
 /*  if($id == NULL || $pw == NULL || $name == NULL || $email == NULL ){
      echo "빈칸 확인필요";
      exit();

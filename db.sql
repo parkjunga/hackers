@@ -147,7 +147,7 @@ CREATE TABLE `tb_user` (
   `pw` varchar(25) NOT NULL,
   `email` varchar(30) NOT NULL,
   `phone` char(12) DEFAULT NULL,
-  `tel` varchar(10) DEFAULT NULL,
+  `tel` varchar(14) DEFAULT NULL,
   `post` char(6) NOT NULL,
   `addr` varchar(40) NOT NULL,
   `receive_mail` char(1) NOT NULL DEFAULT 'Y',
@@ -156,11 +156,11 @@ CREATE TABLE `tb_user` (
   `user_gb` varchar(5) NOT NULL DEFAULT 'user',
   `lecture_no` int(11) DEFAULT NULL,
   PRIMARY KEY (`no`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tb_user` */
 
-insert  into `tb_user`(`no`,`id`,`name`,`pw`,`email`,`phone`,`tel`,`post`,`addr`,`receive_mail`,`receive_sms`,`detail_addr`,`user_gb`,`lecture_no`) values (3,'egoing','홍길동','6fec2a9601d5b3581c94f2150','dfsfsdf@naver.com','1234',NULL,'05263','서울 강동구 암사길 11234','Y','Y','','user',NULL),(4,'test','홍길동','6fec2a9601d5b3581c94f2150','test2@naver.com','01023456789','','05525','서울 송파구 풍성로 42233','N','Y','','admin',NULL),(5,'asdf','감','f0e4c2f76c58916ec258f2468','asdf@asdf','1234','021234567','06252','서울 강남구 강남대로 328강남역 쉐르빌 ㅁㄴㅇㄹ','N','N','','admin',NULL),(12,'test3','김구','9f86d081884c7d659a2feaa0c','dfsfsdf@sfddsfsf','01044445555','2221111111','42957','대구 달성군 화원읍 류목정길 5333','N','Y','','user',NULL),(17,'asd','홍길동','9f86d081884c7d659a2feaa0c','dfsfsdf@hanmail.net','01012341111',NULL,'06313','서울 강남구 양재대로 333','N','Y','23123','user',NULL),(18,'test1','김기동','9f86d081884c7d659a2feaa0c','test@naver.com','01033333333',NULL,'06267','서울 강남구 강남대로 238','N','N','스카이쏠라빌딩','user',NULL),(19,'','','e3b0c44298fc1c149afbf4c89','@','',NULL,'','','','','','user',NULL),(20,'test2','김숙','9f86d081884c7d659a2feaa0c','et@naver.com','01011111313','0','61763','광주 남구 판촌길 23-4','N','N','1층','user',NULL),(22,'test4','김태리','9f86d081884c7d659a2feaa0c','test2@gmail.com','01022221111','024500000','13480','경기 성남시 분당구 대왕판교로 477','N','Y','낙생고등학교','user',NULL);
+insert  into `tb_user`(`no`,`id`,`name`,`pw`,`email`,`phone`,`tel`,`post`,`addr`,`receive_mail`,`receive_sms`,`detail_addr`,`user_gb`,`lecture_no`) values (3,'egoing','홍길동','6fec2a9601d5b3581c94f2150','dfsfsdf@naver.com','1234',NULL,'05263','서울 강동구 암사길 11234','Y','Y','','user',NULL),(4,'test','홍길동','6fec2a9601d5b3581c94f2150','test2@naver.com','01023456789','','05525','서울 송파구 풍성로 42233','N','Y','','admin',NULL),(12,'test3','김구','9f86d081884c7d659a2feaa0c','dfsfsdf@sfddsfsf','01044445555','2221111111','42957','대구 달성군 화원읍 류목정길 5333','N','Y','','user',NULL),(17,'asd','홍길동','9f86d081884c7d659a2feaa0c','dfsfsdf@hanmail.net','01012341111',NULL,'06313','서울 강남구 양재대로 333','N','Y','23123','user',NULL),(18,'test1','김기동','9f86d081884c7d659a2feaa0c','test@naver.com','01033333333',NULL,'06267','서울 강남구 강남대로 238','N','N','스카이쏠라빌딩','user',NULL),(20,'test2','김숙','9f86d081884c7d659a2feaa0c','et@naver.com','01011111313','0','61763','광주 남구 판촌길 23-4','N','N','1층','user',NULL),(22,'test4','김태리','9f86d081884c7d659a2feaa0c','test2@gmail.com','01022221111','024500000','13480','경기 성남시 분당구 대왕판교로 477','N','Y','낙생고등학교','user',NULL),(23,'asdfd','김숙','9f86d081884c7d659a2feaa0c','test2@hanmail.net','01022221111','0300000000','08848','서울 관악구 광신길 86','N','N','신림2단지주공아파트','user',NULL),(25,'test5','이준','9f86d081884c7d659a2feaa0c','test@gmail.com','01012345678','024560000','04973','서울 광진구 강변북로 423','Y','N','한국재난구조단','user',NULL),(27,'test10','박병은','9f86d081884c7d659a2feaa0c','test@hanmail.net','01012345678','0224501111','13485','경기 성남시 분당구 판교로 20','N','Y','판교원마을3단지아파트','user',NULL),(29,'test20','김태리','9f86d081884c7d659a2feaa0c','test@hanmail.net','01012341111','034-4042-0','06267','서울 강남구 강남대로 238','N','Y','스카이쏠라빌딩','user',NULL),(31,'test01','조승우','9f86d081884c7d659a2feaa0c','test2@hanmail.net','01011115678','02-4504-0444','61763','광주 남구 판촌길 23-3','N','Y','23-1','user',NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

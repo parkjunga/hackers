@@ -87,9 +87,9 @@ $t3 = $telp[2];
 						
 						<tr>
 							<th scope="col"><span class="icons"></span>일반전화 번호</th>
-							<td><input type="text" name="tel1" class="input-text" value=<?= $t1 ?> style="width:88px" maxlength="3"/> - 
-							<input type="text" name="tel2" class="input-text" value=<?= $t2 ?> style="width:88px"maxlength="4"/> - 
-							<input type="text" name="tel3" class="input-text"  value=<?= $t3 ?> style="width:88px" maxlength="4"/></td>
+							<td><input type="text" name="tel1" class="input-text" value="<?= $t1 ?>" style="width:88px" maxlength="3"/> - 
+							<input type="text" name="tel2" class="input-text" value="<?= $t2 ?>" style="width:88px"maxlength="4"/> - 
+							<input type="text" name="tel3" class="input-text"  value="<?= $t3 ?>" style="width:88px" maxlength="4"/></td>
 						</tr>
 						<tr>
 							<th scope="col"><span class="icons">*</span>주소</th>
