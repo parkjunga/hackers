@@ -24,12 +24,12 @@ $te = explode('@',$row['email']);
 $p1 = substr($row['phone'],0,3);
 $p2 = substr($row['phone'],3,4);
 $p3 = substr($row['phone'],7,4);
-
+//echo $row['tel'];
 //전화번호
-$t1 = substr($row['tel'],0,2);
-$t2 = substr($row['tel'],2,4);
-$t3 = substr($row['tel'],5,4);
-//echo $t1;
+$telp = explode("-",$row['tel']);
+$t1 = $telp[0];
+$t2 = $telp[1];
+$t3 = $telp[2];
 //echo $te[0];
 ?>
 <div id="container" class="container-full">
@@ -87,9 +87,9 @@ $t3 = substr($row['tel'],5,4);
 						
 						<tr>
 							<th scope="col"><span class="icons"></span>일반전화 번호</th>
-							<td><input type="text" name="tel1" class="input-text" value=<?= $t1 ?> style="width:88px"/> - 
-							<input type="text" name="tel2" class="input-text" value=<?= $t2 ?> style="width:88px"/> - 
-							<input type="text" name="tel3" class="input-text"  value=<?= $t3 ?> style="width:88px"/></td>
+							<td><input type="text" name="tel1" class="input-text" value=<?= $t1 ?> style="width:88px" maxlength="3"/> - 
+							<input type="text" name="tel2" class="input-text" value=<?= $t2 ?> style="width:88px"maxlength="4"/> - 
+							<input type="text" name="tel3" class="input-text"  value=<?= $t3 ?> style="width:88px" maxlength="4"/></td>
 						</tr>
 						<tr>
 							<th scope="col"><span class="icons">*</span>주소</th>

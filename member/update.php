@@ -5,7 +5,7 @@ include '../include/db.php';
  $pwR = $_POST['passwordRe'];
  $email = $_POST['email1'].'@'.$_POST['email2'];
  $phone = $_POST['phone1'].$_POST['phone2'].$_POST['phone3'];
- $tel = $_POST['tel1'].$_POST['tel2'].$_POST['tel3'];
+ $tel = $_POST['tel1']."-".$_POST['tel2']."-".$_POST['tel3'];
  $postNum = $_POST['postNum'];
  $addr = $_POST['postAddr'];
  $dAddr=$_POST['detailAddr'];
@@ -26,27 +26,35 @@ include '../include/db.php';
  echo $phone;  
 // 암호화 
 $pwHash = hash("sha256",$pw);
-if($tel != ''){
+if($tel == ''){
     $sql = "update tb_user 
     set email = '$email'
-       ,addr='$addr',detail_Addr='$dAddr' 
+       ,addr='$addr'
+       ,detail_Addr='$dAddr',
+       receive_mail = '$Remail',
+       receive_sms = '$Rsms' 
        where id = '$id' ";
+    echo $sql;
 }else{
     $sql = "update tb_user 
-               set email = '$email'
-               ,tel ='$tel'
-       ,addr='$addr',detail_Addr='$dAddr' 
-       where id = '$id' ";
+              set email = '$email'    
+                 ,addr='$addr'
+                 ,tel ='$tel'
+                ,detail_Addr='$dAddr',
+                receive_mail = '$Remail',
+                 receive_sms = '$Rsms' 
+              where id = '$id' ";
+echo $sql;
 }
 
 $result = mysql_query($sql) or die("틀렸다");
- if(mysql_affected_rows($conn)){
-     echo "정상적으로입력되지않았음";
+ if($result){
+     echo "정상적으로입됨";
  }else{
-     echo "정상적으로 입력됨";
-     echo "<script> 
+     echo "정상적으로 입력되지않음";
+/*      echo "<script> 
      document.location.href='/member/index.php'; 
-       </script>"; 
+       </script>";  */
  } 
 
 ?>
