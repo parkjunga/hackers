@@ -12,7 +12,14 @@ $pw = $_POST['pw'];
 
 // 암호
 
-
+// 비밀번호 체크
+if(!ereg("[[:alnum:]+]{8,15}",$pw)) {
+    echo "<script>
+                alert('비밀번호는 8~15자의 영문자나 숫자의 조합이어야 합니다!!');
+       history.back(-1);
+     </script>";
+    //exit();
+  }
 
 
 switch($name && $id){
