@@ -170,8 +170,8 @@ function showSub(obj) {
 	</div>
 		<div class="box-btn t-r">
 			<a href="/lecture_board/index.php?mode=list" class="btn-m-gray">목록</a>
-			<a href="#" class="btn-m ml5">저장</a>
-			<input type="submit" value="전송" onclick="submitContents(this)" />
+			<!-- <a href="#" class="btn-m ml5">저장</a> -->
+			<input type="submit" value="전송" onclick="submitContents(this)" class="btn-m ml5" style="cursor:pointer;" />
 		</div>
         </form>
 		

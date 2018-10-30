@@ -11,8 +11,9 @@ $oriFNo = $_POST['oriFNo'];
 $ori = $_POST['oriFile'];
 $file = $_FILES['file'];
 $no = $_POST['no'];
+$id = $_POST['id'];
 echo $no;
-echo '테스트';
+echo '<br/>';
 echo $oriFNo;
 echo '<br/>';
 echo $type;
@@ -21,10 +22,8 @@ echo $teacher;
 echo '<br/>';
 echo $title;
 echo '<br/>';
-echo $oriFNo;
+echo $id;
 echo '<br/>';
-
-
 
 // 파일 관련 정보
 $f_name =$_FILES['file']['name']; // 원본파일명 
@@ -35,7 +34,13 @@ $f_Error=$fType =$_FILES['file']['error'];
 $upload ='../upload/file/';
 
 echo $f_name;
-
+echo '<br/>';
+echo $f_Type;
+echo '<br/>';
+echo $f_Size;
+echo '<br/>';
+echo $f_Temp;
+echo '<br/>';
 //echo $f_Type;
 $splitN=explode(".",$f_name);
 $splitN[0]; // 파일명
@@ -61,7 +66,14 @@ if($f_name == ''){
     
     $f_result = mysql_query($f_sql);
    
-    $sql = "UPDATE tb_lecture SET category_no = '$type',lecture_title = '$title' ,NAME = '$teacher',TIME = '$time',lecture_level = '$level',file_no = '$oriFNo' WHERE lecture_no = '$no'";
+    $sql = "UPDATE tb_lecture 
+               SET category_no = '$type'
+                ,lecture_title = '$title' 
+                        ,NAME = '$teacher'
+                        ,TIME = '$time'
+               ,lecture_level = '$level'
+                     ,file_no = '$oriFNo' 
+              WHERE lecture_no = '$no'";
    
    $result = mysql_query($sql);
      
@@ -77,7 +89,13 @@ if($f_name == ''){
 
 } else{
     echo '있어 파일';
-    $f_sql = "UPDATE tb_file SET file_name = '$f_new_name',file_ori_name = '$f_ori_name' ,file_type = '$splitN[1]' ,file_path = '$url' ,reg_date = NOW(),name='$teacher'
+    $f_sql = "UPDATE tb_file 
+                SET file_name = '$f_new_name'
+                ,file_ori_name = '$f_ori_name' 
+                ,file_type = '$splitN[1]' 
+                ,file_path = '$url' 
+                ,reg_date = NOW()
+                ,id='$id'
      where file_no = '$oriFNo'";
     
     $f_result = mysql_query($f_sql);
@@ -89,7 +107,15 @@ if($f_name == ''){
 
     } 
 
-    $sql = "UPDATE tb_lecture SET category_no = '$type',lecture_title = '$title' ,NAME = '$teacher',TIME = '$time',lecture_level = '$level',file_no = '$oriFNo' WHERE lecture_no = '$no'";
+    $sql = "UPDATE tb_lecture 
+               SET category_no = '$type'
+                  ,lecture_title = '$title' 
+                  ,teacher = '$teacher'
+                  ,TIME = '$time'
+                  ,lecture_level = '$level'
+                  ,file_no = '$oriFNo' 
+                  WHERE lecture_no = '$no'";
+    echo $sql;
     $result = mysql_query($sql);
      
     if(!$result){

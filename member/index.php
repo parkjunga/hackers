@@ -1,6 +1,6 @@
 <div id="wrap">
 <?php
-include 'header.php';
+include '../include/header.php';
 
 	switch ($_GET['mode']) {
 		case "step_01" :  
@@ -60,7 +60,7 @@ $(document).ready(function(){
 });
 </script>
 <?php
-include 'footer.php';
+include '../include/footer.php';
 ?>
 </div>
 </body>

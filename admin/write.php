@@ -78,7 +78,7 @@
 		<div class="box-btn t-r">
 			<a href="/admin/index.php?mode=list" class="btn-m-gray">목록</a>
 			<!-- <a href="#" class="btn-m ml5">저장</a> -->
-			<input type="submit" id="lBtn" value="저장"/>
+			<input type="submit" id="lBtn" class="btn-m ml5" value="저장" style="cursor:pointer;"/>
 		</div>
        </form>		
 	</div>
@@ -128,7 +128,7 @@ $("#lBtn").click(function(){
 			if(exe == '.jpg' || exe == '.png' || exe == '.bmp' || exe == '.gif'){
 			$("#lForm").submit();
 			}else{
-			alert("확장자체크가 필요합니다.");
+			alert("웹관련 파일 업로드가 불가합니다. (ex. .php/.html/.c 등등 )");
 			return false;
 			}
 		}

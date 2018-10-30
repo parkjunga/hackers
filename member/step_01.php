@@ -1,3 +1,5 @@
+<!-- 약관동의 -->
+
 <div id="container" class="container-full">
 	<div id="content" class="content">
 		<div class="inner">

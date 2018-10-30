@@ -19,7 +19,7 @@ mysql_query("set session character_set_client=utf8;");
 if (!$conn) {
     die('접속 실패: ' . mysql_error());
 }
-//echo "접속 성공";
+echo "접속 성공";
 
 
 ?>

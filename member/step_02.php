@@ -1,3 +1,5 @@
+<!-- 휴대폰 인증  -->
+
 <div id="container" class="container-full">
 	<div id="content" class="content">
 		<div class="inner">
@@ -32,13 +34,13 @@
 						<input type="text" name="phone1" class="input-text" maxlength="3" style="width:50px" maxlength="3"/> - 
 						<input type="text" name="phone2" class="input-text" maxlength="4" style="width:50px" maxlength="4"/> - 
 						<input type="text" name="phone3" class="input-text" maxlength="4" style="width:50px" maxlength="4"/>
-						<input type="button" id="phoneC" value="인증번호받기" class="btn-s-line">
+						<input type="button" id="phoneC" value="인증번호받기" class="btn-s-line" style="cursor:pointer;">
 						<!--<a href="#" class="btn-s-line">인증번호 받기</a>-->
                         </form>
 					    <br /><br />
 <!--                     <form action="" method="POST"> -->
-						<input type="text" name="code" class="input-text" style="width:200px"/>
-                        <input id="test" type="submit" value="인증번호 확인" class="btn-s-line">
+						<input type="text" name="code" class="input-text" style="width:200px;"/>
+                        <input id="test" type="submit" value="인증번호 확인" class="btn-s-line" style="cursor:pointer;">
                         </form>
                     </div>
 					<i class="graphic-phon"><span>휴대폰 인증</span></i>
@@ -49,46 +51,63 @@
     </div>
    <script>
       $("#phoneC").click(function(){
+		var chk1 = RegExp(/^01([0|1|6|7|8|9]?)$/);
+		var chk2 = RegExp( /^([0-9]{3,4}?)$/);
+		var chk3 = RegExp( /^([0-9]{4}?)$/);
 		var p1 = $("input[name='phone1']").val();
 		var p2 = $("input[name='phone2']").val();
 		var p3 = $("input[name='phone3']").val();
 		if(p1 == null || p1 == ''){
-			alert("값비어있")
+			alert("번호가 입력되지않았습니다.")
 			return false;
 		}
 		if(p2 == null || p2 == ''){
-			alert("값비어있1")
+			alert("번호가 입력되지않았습니다.")
 			return false;
 		}
 		if(p3 == null || p3 == ''){
-			alert("값비어있4")
+			alert("번호가 입력되지않았습니다.")
 			return false;
+		}else{
+			if (!chk1.test(p1)) {
+				alert("숫자만 입력이 가능합니다.");
+				return false;
+			}if(!chk2.test(p2)){
+				alert("숫자만 입력이 가능합니다.");
+				return false;
+			}if(!chk3.test(p3)){
+				alert("숫자만 입력이 가능합니다.");
+				return false;
+			}alert("인증번호가 발송되었습니다.");
 		}
-		alert("인증번호가 발송되었습니다.");
+		
 	  })
 
        $("#test").click(function(){
 		   var code = $("input[name='code']").val();
-		   //alert(code);
+		   if(code == null || code == ''){
+			   alert("인증코드를 입력해주세요.")
+			   return false;
+		   }else{
 		   $.ajax({ 
 			url: "/member/test.php",
 			type: "POST",
 			data: {code:code}
 			})      
 			.done(function(result) {
-				if(result == 'N'){
-					alert("인증코드를 확인해주세요");
-					return false;
-				}else {
+				alert(result);
+				if(result == 'Y:'){
 					alert("인증코드가 일치합니다.");
 					//window.location.href = '';
 					$("#tForm").submit();
-										
+				}else {
+					alert("인증코드를 확인해주세요");
+					return false;										
 				}
-			//alert("비교");
-			//alert(result);
 			})
 
+		   }
+		  
 			})
     
 

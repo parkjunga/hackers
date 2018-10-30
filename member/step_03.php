@@ -11,6 +11,7 @@
  }
 
 </script>
+<!-- 회원가입 -->
 
 <div id="container" class="container-full">
 	<div id="content" class="content">
@@ -99,7 +100,7 @@
 								<p >
 									<label>우편번호 <input type="text" name="postNum" class="input-text ml5" style="width:242px" readonly /></label>
 									<!--<a href="#" class="btn-s-tin ml10">주소찾기</a>-->
-									<input type="button" value="주소찾기" onclick="Post()"/>
+									<input type="button" value="주소찾기" onclick="Post()" class="btn-s-tin ml10"/>
 								</p>
 								<p class="mt10">
 									<label>기본주소 <input type="text" name="postAddr" class="input-text ml5" style="width:719px"/></label>
@@ -145,7 +146,7 @@
 				</table>
 
 				<div class="box-btn">
-				    <input id="cssBtn-1" type="submit" value="회원가입" class="btn-1 "/>
+				    <input id="cssBtn-1" type="submit" value="회원가입" class="btn-1" style="cursor:pointer; />
 					<!-- <a href="#" class="btn-l">회원가입</a> -->
 				</div>
 				</form>

@@ -12,7 +12,7 @@
 
 </script>
 <?php
-include 'db.php';
+include '../include/db.php';
 $id = $_SESSION['id'];
 $sql = "select * from tb_user where id='$id'";
 $result = mysql_query($sql);
@@ -90,7 +90,7 @@ echo $te[0];
 							<th scope="col"><span class="icons">*</span>주소</th>
 							<td>
 								<p >
-									<label>우편번호 <input type="text" name="postNum" value="<?=$row['post'] ?>" class="input-text ml5" style="width:242px" disabled /></label>
+									<label>우편번호 <input type="text" name="postNum" value="<?=$row['post'] ?>" class="input-text ml5" style="width:242px"  /></label>
 									<!-- <a href="#" class="btn-s-tin ml10">주소찾기</a> -->
 									<input type="button" value="주소찾기" class="btn-s-tin ml10"onclick="Post()"/>
 								</p>
@@ -98,7 +98,7 @@ echo $te[0];
 									<label>기본주소 <input type="text" name="postAddr" value="<?=$row['addr']?>" class="input-text ml5" style="width:719px"/></label>
 								</p>
 								<p class="mt10">
-									<label>상세주소 <input type="text" name="detailAddr" class="input-text ml5" style="width:719px"/></label>
+									<label>상세주소 <input type="text" name="detailAddr" class="input-text ml5" style="width:719px" value="<?=$row['detail_addr']?>"/></label>
 								</p>
 							</td>
 						</tr>
@@ -107,11 +107,11 @@ echo $te[0];
 							<td>
 								<div class="box-input">
 									<label class="input-sp">
-										<input type="radio" name="sms" value="Y"checked="checked"/>
+										<input type="radio" name="sms" value="Y" <?php  if($row['receive_sms'] == 'Y'){ ?>   checked="<? echo 'checked'; } ?>"/>
 										<span class="input-txt">수신함</span>
 									</label>
 									<label class="input-sp">
-										<input type="radio" name="sms" value="N" />
+										<input type="radio" name="sms" value="N" <?php  if($row['receive_sms'] == 'N'){ ?>   checked="<? echo 'checked'; } ?>"  />
 										<span class="input-txt">미수신</span>
 									</label>
 								</div>
@@ -123,11 +123,11 @@ echo $te[0];
 							<td>
 								<div class="box-input">
 									<label class="input-sp">
-										<input type="radio" name="email" value="Y" />
+										<input type="radio" name="email" value="Y" <?php  if($row['receive_mail'] == 'Y'){ ?>   checked="<? echo 'checked'; } ?>" />
 										<span class="input-txt">수신함</span>
 									</label>
 									<label class="input-sp">
-										<input type="radio" name="email" value="N"  />
+										<input type="radio" name="email" value="N" <?php  if($row['receive_mail'] == 'N'){ ?>   checked="<? echo 'checked'; } ?>" />
 										<span class="input-txt">미수신</span>
 									</label>
 								</div>

@@ -1,5 +1,5 @@
 <?php
- include 'db.php';
+ include '../include/db.php';
 session_start();
 //$_SESSION['prev_refere'] $_SERVER['HTTP_REFERER'];
 $id = $_POST['id'];

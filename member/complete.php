@@ -17,7 +17,7 @@
 			</div>
 
 			<div class="box-btn mt30">
-				<a href="/member/login" class="btn-l">로그인</a>
+				<a href="/member/login.php" class="btn-l">로그인</a>
 				<a href="#" class="btn-l-line ml5">수강신청</a>
 			</div>
 

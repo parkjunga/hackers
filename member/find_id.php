@@ -167,13 +167,23 @@ $("#smsBtn").click(function(){
 	var p2 = $("input[name='phone2']").val();
 	var p3 = $("input[name='phone3']").val();
 	var phone = p1 + p2 + p3 ;
-	$.ajax({
+	if(name == '' || name == null){
+		alert("이름을 입력해주세요.");
+		return false;
+	}
+	if(p1 == '' || p1 == null || p2 == '' || p2 == null || p3 == '' || p3 == null){
+		alert("휴대폰 번호를 입력해주세요.");
+		return false;
+	}else{
+		$.ajax({
 		url:"/member/find.php",
 		type:"POST",
 		data:{name:name,phone:phone}
 	}).done(function(result){
 		alert(result);
 	});
+	}
+	
 
 	return false;
 })

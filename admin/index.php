@@ -1,5 +1,5 @@
 <?php
-    include '../member/header.php';
+    include '../include/header.php';
     switch ($_GET['mode']) {
 		case "write" :  
 		         include 'write.php';
@@ -9,10 +9,13 @@
 			  break;
 		case "modify":
 				include 'modify.php';
-			  break;
-        default :
+				break;
+		case "delete":
+					include 'delete.php';
+					break;
+    default :
               include 'list.php';
          			   
 	}
-    include '../member/footer.php';
+    include '../include/footer.php';
 ?>

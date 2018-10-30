@@ -51,6 +51,7 @@ echo $row['category_no'];
 			<tbody>
 				<tr>
                     <input type="hidden" name="no" value="<?= $no ?>">
+					<input type="hidden" name="id" value="<?= $_SESSION['id'] ?>">
 					<th scope="col">강의</th>
 					<td>
                         <select name="type" class="input-sel" style="width:160px">
@@ -107,7 +108,7 @@ echo $row['category_no'];
 		<div class="box-btn t-r">
 			<a href="/admin/index.php?mode=list" class="btn-m-gray">목록</a>
 			<!-- <a href="#" class="btn-m ml5">저장</a> -->
-			<input type="submit" id="lBtn" value="수정"/>
+			<input type="submit" id="lBtn" value="수정" class="btn-m ml5" style="cursor:pointer;"/>
 		</div>
        </form>		
 	</div>

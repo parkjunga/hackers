@@ -1,23 +1,27 @@
 <?php
+$no = $_POST['review_no'];
 $type = $_POST['type'];
 $type2 = $_POST['type2'];
 $title = $_POST['title'];
 $satisfy = $_POST['score'];
 $ir1 = $_POST['ir1'];
-
 $id = $_SESSION['id'];
 $src = 'src';
-
+echo $no;
+echo '<br/>';
 // 게시글 sql 
-$sql = "INSERT INTO tb_review(id,title,contents,category_no,reg_date,satisfy,lecture_no)VALUES('$id','$title','$ir1','$type',NOW(),'$satisfy','$type2')";
-//echo $sql;
+$sql = "UPDATE tb_review
+           set title = '$title'
+             ,contents = '$ir1'
+             ,category_no = '$type'
+             ,reg_date = NOW()
+            ,satisfy = '$satisfy'
+            ,lecture_no = '$type2'
+        where board_no = '$no'";
+echo $sql;
 $rst = mysql_query($sql);
 echo $rst;
-echo '테스트';
-$key = mysql_insert_id();
-echo '<br/>';
-echo $key;
-echo '<br/>';
+
 if(strpos($ir1,$src) != false){
     echo '포함됨';
     
@@ -75,12 +79,18 @@ $s= preg_match_all("/<img src=[']?([^>']+)[']?[^>]* title=[']?([^>']+)[']?[^>]*>
 
 
      // 파일 sql 
-    $f_sql = "INSERT INTO tb_review_file(sys_name,file_type,file_path,board_no,ori_name,file_size)VALUES('$sysimg','$exts','$path','$key','$oriImg','$imgSize')";
+    $f_sql = "UPDATE tb_review_file
+                set sys_name = '$sysimg'
+                   ,file_type = '$exts'
+                   ,file_path = '$path'
+                   ,board_no = '$key'
+                   ,ori_name = '$oriImg'
+                   ,file_size = $imgSize' ";
     echo $f_sql;
     echo '<br/>';
-    $f_key = mysql_insert_id();
-    echo "그룹키값:" .$f_key;
-    $f_group_sql = "INSERT INTO tb_review_file_group(file_no,board_no)VALUES('$f_key','$key')";
+    $f_group_sql = "UPDATE tb_review_file_group
+                       set file_no = '$f_key'
+                         ,board_no = '$key'";
      
     $f_result = mysql_query($f_sql);  
     $f_group_result = mysql_query($f_group_sql);
@@ -89,17 +99,9 @@ $s= preg_match_all("/<img src=[']?([^>']+)[']?[^>]* title=[']?([^>']+)[']?[^>]*>
      }
     };
      
-    //echo("<script>location.href='/lecture_board/index.php?mode=list';</script>");
+    echo("<script>location.href='/lecture_board/index.php?mode=list';</script>");
 };
 
-
-/*
-먼저 
-1. 이미지 파일 여부를 확인 
-2. 파일이있다면 파일의 갯수확인 
-3. 파일을 먼저 insert 후 
-4. 파일의 번호를 찾아 게시글에 넣어준다.
-*/
 
 
 ?>

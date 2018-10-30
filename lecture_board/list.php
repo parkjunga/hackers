@@ -10,7 +10,8 @@
  echo '<br/>';
  $keyword = $_GET['keyword'];
  echo $keyword;
- 
+ $cNo = $_GET['category_no'];
+		
  $query = "SELECT *
  FROM `tb_review` r
  JOIN `tb_lecture` l
@@ -27,7 +28,7 @@
  $where2 ="WHERE c.category_no = '$type'
  AND u.name LIKE '%$keyword%' order by r.board_no desc";
 
- // 
+ 
 
  if($type != '' ){
 	 if($type2 == 1){
@@ -37,12 +38,17 @@
 	 }
  }else{
 	 // 총 데이터 수 
- $sql = $query."order by r.board_no desc";
+	 if($cNo != ''){
+		$sql = $query."where c.category_no = '$cNo' order by r.board_no desc";
+	 } else{
+		 $sql = $query."order by r.board_no desc";
+	 }
  }
  
  $result = mysql_query($sql); 
  while($sRow = mysql_fetch_array($result)){
-	echo $sRow['lecture_title'];
+	//echo $sRow['lecture_title'];
+	//echo '<br/>';
 };
  $total = mysql_num_rows($result); 
  $page = ($_GET['page'])?$_GET['page']:1;
@@ -82,13 +88,13 @@
 			</div>
 		</div>
 		<ul class="tab-list tab5">
-			<li class="on"><a href="#">전체</a></li>
-			<li><a href="#">일반직무</a></li>
-			<li><a href="#">산업직무</a></li>
-			<li><a href="#">공통역량</a></li>
-			<li><a href="#">어학 및 자격증</a></li>
+			<li class="<? if($cNo == '') echo 'on' ?>"><a href="/lecture_board/index.php?mode=list" >전체</a></li>
+			<li class="<? if($cNo == '0') echo 'on' ?>" ><a href="/lecture_board/index.php?mode=list&&category_no=0" >일반직무</a></li>
+			<li class="<? if($cNo == '1') echo 'on' ?>"><a href="/lecture_board/index.php?mode=list&&category_no=1" >산업직무</a></li>
+			<li class="<? if($cNo == '2') echo 'on' ?>"><a href="/lecture_board/index.php?mode=list&&category_no=2" >공통역량</a></li>
+			<li class="<? if($cNo == '3') echo 'on' ?>"><a href="/lecture_board/index.php?mode=list&&category_no=3" >어학 및 자격증</a></li>
 		</ul>
-
+	
 		<div class="search-info">
 			<div class="search-form f-r">
 				<form id="sForm">
@@ -117,6 +123,7 @@
 				<col style="*"/>
 				<col style="width:15%"/>
 				<col style="width:12%"/>
+				<col style="width:8%"/>
 			</colgroup>
 
 			<thead>
@@ -126,28 +133,54 @@
 					<th scope="col">제목</th>
 					<th scope="col">강좌만족도</th>
 					<th scope="col">작성자</th>
+					<th scope="col">조회수</th>
 				</tr>
 			</thead>
-	 
 			<tbody>
+			<!-- 베스트 글 -->
+			<?
+			 $cntSql = $query."order by r.cnt desc Limit 0,3";
+             $cntRst = mysql_query($cntSql);
+			 while($cntRow = mysql_fetch_array($cntRst)){
+				$star = $cntRow['satisfy'];
+				if($cntRow['satisfy'] == '0'){
+					$star = '0';
+				}
+				else if($cntRow['satisfy'] == '1') {
+					$star = '20';
+				}
+				else if($cntRow['satisfy'] == '2') {
+					$star = '40';
+				}
+				else if($cntRow['satisfy'] == '3') {
+					$star = '60';
+				}
+				else if($cntRow['satisfy'] == '4') {
+					$star = '80';
+				}else if($cntRow['satisfy'] == '5') {
+					$star = '100';
+				} 
+			 ?>
 				<!-- set -->
 				<tr class="bbs-sbj">
 					<td><span class="txt-icon-line"><em>BEST</em></span></td>
-					<td>CS</td>
+					<td><?= $cntRow['category_title']?></td>
 					<td>
-                    <a href="/lecture_board/index.php?mode=view">
-							<span class="tc-gray ellipsis_line">수강 강의명 : Beyond Trouble, 조직을 감동시키는 관계의 기술</span>
-							<strong class="ellipsis_line">절대 후회 없는 강의 예요!</strong>
+                    <a href="/lecture_board/index.php?mode=view&&review_no=<?= $cntRow['board_no']?>"  >
+							<span class="tc-gray ellipsis_line">수강 강의명 : <?= $cntRow['lecture_title']?></span>
+							<strong class="ellipsis_line"><?= $cntRow['title']?></strong>
 						</a>
 					</td>
-					<td>
-						<span class="star-rating">
-							<span class="star-inner" style="width:80%"></span>
-						</span>
-					</td>
-					<td class="last">이름</td>
+					<td class="last"><span class="star-rating">
+							<span class="star-inner" style="width:<?= $star ?>%"></span>
+						</span></td>
+					<td class="last"><?= $cntRow['name']?></td>
+					<td class="last"><?= $cntRow['cnt']?></td>
 				</tr>
-				<!-- set -->
+				<?
+			 }
+			 ?>
+				<!-- 일반 게시글 -->
 				<?php
 				// $totalSize는 한페이지당 뿌려줄 데이터 수 
 				$s_point = ($page-1)*$pageSize; 
@@ -159,7 +192,12 @@
 					}
 				}else{
 					// 총 데이터 수 
-					$data = $query.'order by r.board_no desc Limit '.$s_point.','.$pageSize;
+					if($cNo != ''){
+						$data = $query."where c.category_no = '$cNo' order by r.board_no desc Limit ".$s_point.','.$pageSize;
+					}else{
+						$data = $query."order by r.board_no desc Limit ".$s_point.','.$pageSize;
+					}
+					
 				}
 				
 				$rst = mysql_query($data);
@@ -198,6 +236,7 @@
 							<span class="star-inner" style="width:<?= $star ?>%"></span>
 						</span></td>
 					<td class="last"><?= $row['name']?></td>
+					<td class="last"><?= $row['cnt']?></td>
 				</tr>	
 				<?
  					if($row == false){
@@ -210,12 +249,11 @@
 				?>
 				<!-- //set -->
 
-				
 			</tbody>
 		</table>
 
 		<div class="box-paging">
-			<a href="#"><i class="icon-first"><span class="hidden">첫페이지</span></i></a>
+			<a href="<?= $PHP_SELF?>?page=<?= $start_p?>"><i class="icon-first"><span class="hidden">첫페이지</span></i></a>
 			<a href="<?= $PHP_SELF?>?page=<?=$start_p-1?>"><i class="icon-prev"><span class="hidden">이전페이지</span></i></a>
 			<?
 			for($p=$start_p; $p<=$end_p; $p++){
@@ -224,14 +262,8 @@
 			<?
 			}
 			?>
-			<!-- <a href="#" class="active">1</a>
-			<a href="#">2</a>
-			<a href="#">3</a>
-			<a href="#">4</a>
-			<a href="#">5</a>
-			<a href="#">6</a> -->
 			<a href="<?$PHP_SELF?>?page=<?= $end_p+1?>"><i class="icon-next"><span class="hidden">다음페이지</span></i></a>
-			<a href="#"><i class="icon-last"><span class="hidden">마지막페이지</span></i></a>
+			<a href="<?$PHP_SELF?>?page=<?= $end_p?>"><i class="icon-last"><span class="hidden">마지막페이지</span></i></a>
 		</div>
 
 		<div class="box-btn t-r">
@@ -245,13 +277,4 @@
 		</div>
 	</div>
 </div>
-<script>
-/*  $("#searchBtn").click(function(){
-	 var type = $("select[name='type']").val();
-	 if(type == ""){
-		 alert("분류를 선택해주세요");
-		 return false;
-	 }
-	 $("#sForm").submit();
- }) */
-</script>
+

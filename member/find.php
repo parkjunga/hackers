@@ -2,7 +2,7 @@
 session_start();
 $_SESSION['code']='123456';
 $code =$_SESSION['code'];
-include 'db.php';
+include '../include/db.php';
 $phone = $_POST['phone'];
 $name = $_POST['name'];
 $id = $_POST['id'];

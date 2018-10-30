@@ -63,7 +63,7 @@ $row = mysql_fetch_array($result);
 			?>
 			<a href="/admin/index.php?mode=modify&&lecture_no=<?= $no ?>" class="btn-m ml5">수정</a>
 			<!-- <td><a href="/admin/index.php?mode=view&&lecture_no='.$row[0].'"> -->
-			<a href="#" class="btn-m-dark">삭제</a>
+			<a href="/admin/index.php?mode=delete&&lecture_no=<?= $no ?>&&file_no=<?= $row['file_no']?>" class="btn-m-dark" >삭제</a>
 		</div>
 	</div>
 </div>

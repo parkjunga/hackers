@@ -1,7 +1,20 @@
 <?php
 
-$sql = "SELECT * FROM tb_lecture l INNER JOIN tb_category c ON l.category_no = c.category_no order by l.lecture_no desc";
-$result = mysql_query($sql);
+// 관리자 리스트 페이지
+
+$cNo = $_GET['category_no'];
+//echo $cNo;
+$sql = "SELECT * FROM tb_lecture l INNER JOIN tb_category c ON l.category_no = c.category_no";
+if($cNo != ''){
+	$data = $sql." where c.category_no = '$cNo' order by l.lecture_no desc";
+	//echo $data;
+}else{
+	$data = $sql." order by l.lecture_no desc";
+	//echo $data;
+}
+
+
+$result = mysql_query($data);
 //echo $result;
 
 ?> 
@@ -20,27 +33,12 @@ $result = mysql_query($sql);
 		</div>
 
 		<ul class="tab-list tab5">
-			<li class="on"><a href="#">전체</a></li>
-			<li><a href="#">일반직무</a></li>
-			<li><a href="#">산업직무</a></li>
-			<li><a href="#">공통역량</a></li>
-			<li><a href="#">어학 및 자격증</a></li>
+			<li class="<? if($cNo == '') echo 'on' ?>"><a href="/admin/index.php?mode=list" >전체</a></li>
+			<li class="<? if($cNo == '0') echo 'on' ?>" ><a href="/admin/index.php?mode=list&&category_no=0" >일반직무</a></li>
+			<li class="<? if($cNo == '1') echo 'on' ?>"><a href="/admin/index.php?mode=list&&category_no=1" >산업직무</a></li>
+			<li class="<? if($cNo == '2') echo 'on' ?>"><a href="/admin/index.php?mode=list&&category_no=2" >공통역량</a></li>
+			<li class="<? if($cNo == '3') echo 'on' ?>"><a href="/admin/index.php?mode=list&&category_no=3" >어학 및 자격증</a></li>
 		</ul>
-
-		<div class="search-info">
-			<div class="search-form f-r">
-				<select class="input-sel" style="width:158px">
-					<option value="">분류</option>
-				</select>
-				<select class="input-sel" style="width:158px">
-					<option value="">강의명</option>
-					<option value="">작성자</option>
-				</select>
-				<input type="text" class="input-text" placeholder="강의명을 입력하세요." style="width:158px"/>
-				<button type="button" class="btn-s-dark">검색</button>
-			</div>
-		</div>
-
 		<table border="0" cellpadding="0" cellspacing="0" class="tbl-bbs">
 			<caption class="hidden">수강후기</caption>
 			<colgroup>
@@ -62,20 +60,6 @@ $result = mysql_query($sql);
 			</thead>
 	 
 			<tbody>
-				<!-- set -->
-				<tr class="bbs-sbj">
-					<td><span class="txt-icon-line"><em>BEST</em></span></td>
-					<td>CS</td>
-					<td>
-                    <a href="/lecture_board/index.php?mode=view">
-							<span class="tc-gray ellipsis_line">Beyond Trouble, 조직을 감동시키는 관계의 기술</span>
-						</a>
-					</td>
-					<td class="last">이름</td>
-					<td class="last">15시간</td>
-				</tr>
-				<!-- //set -->
-				<!-- set -->
 
 				<?php
 				while($row=mysql_fetch_array($result)){
@@ -94,7 +78,7 @@ $result = mysql_query($sql);
 			</tbody>
 		</table>
 
-		<div class="box-paging">
+		<!-- <div class="box-paging">
 			<a href="#"><i class="icon-first"><span class="hidden">첫페이지</span></i></a>
 			<a href="#"><i class="icon-prev"><span class="hidden">이전페이지</span></i></a>
 			<a href="#" class="active">1</a>
@@ -105,7 +89,7 @@ $result = mysql_query($sql);
 			<a href="#">6</a>
 			<a href="#"><i class="icon-next"><span class="hidden">다음페이지</span></i></a>
 			<a href="#"><i class="icon-last"><span class="hidden">마지막페이지</span></i></a>
-		</div>
+		</div> -->
 
 		<div class="box-btn t-r">
 			<a href="/admin/index.php?mode=write" class="btn-m">강의 등록</a>

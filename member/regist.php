@@ -1,5 +1,5 @@
 <?php 
- include "db.php";
+ include "../include/db.php";
   
  $name = $_POST['name'];
  $id = $_POST['id'];
@@ -43,10 +43,10 @@ $pwHash = hash("sha256",$pw);
     if (!$result) {
         echo "테이블 값 입력 실패: ". mysql_error();
       }
-      echo "테이블 값 입력 성공"; 
-    /*   echo "<script> 
+      //echo "테이블 값 입력 성공"; 
+      echo "<script> 
         document.location.href='/member/index.php?mode=complete'; 
-          </script>";  */
+          </script>"; 
     
 
 

@@ -55,7 +55,7 @@ function showSub(obj) {
 			WHERE r.board_no = '$no'";
 	$result = mysql_query($sql);
 	$row = mysql_fetch_array($result);
-	echo $row;
+	//echo $row;
 	?>
 	<div id="content" class="content">
 		<div class="tit-box-h3">
@@ -74,7 +74,7 @@ function showSub(obj) {
 				<li>욕설(욕설을 표현하는 자음어/기호표현 포함) 및 명예훼손, 비방,도배글, 상업적 목적의 홍보성 게시글 등 사회상규에 반하는 게시글 및 강의내용과 상관없는 서비스에 대해 작성한 글들은 삭제 될 수 있으며, 법적 책임을 질 수 있습니다.</li>
 			</ul>
 		</div>
-		<form id="testF" name="nse" action="/lecture_board/index.php?mode=insert" method="POST"enctype="multipart/form-data"> 
+		<form id="testF" name="nse"  action="/lecture_board/index.php?mode=update" method="POST"enctype="multipart/form-data"> 
 		<table border="0" cellpadding="0" cellspacing="0" class="tbl-col">
 			<caption class="hidden">강의정보</caption>
 			<colgroup>
@@ -86,6 +86,7 @@ function showSub(obj) {
 				<tr>
 					<th scope="col">강의</th>
 					<td>
+						<input type="hidden" name="review_no" value="<?= $row['board_no'] ?>"/>
 						<select name="type" class="input-sel" style="width:160px" onChange="showSub(this.options[this.selectedIndex].value);">
 							<option value="">분류</option>
 							<option value="0" <? if($row['category_no'] == 0) echo 'selected' ?>>일반직무</option>
@@ -159,7 +160,7 @@ function showSub(obj) {
 		
 		<div class="editor-wrap">
 		
-    	   <textarea name="ir1" id="ir1" class="nse_content" cols="108" ></textarea>
+    	   <textarea name="ir1" id="ir1" class="nse_content" cols="108" ><?=htmlspecialchars($row['contents'])?></textarea>
 			<script type="text/javascript">
 				var oEditors = [];
 				nhn.husky.EZCreator.createInIFrame({
@@ -180,7 +181,7 @@ function showSub(obj) {
 	</div>
 		<div class="box-btn t-r">
 			<a href="/lecture_board/index.php?mode=list" class="btn-m-gray">목록</a>
-			<input type="submit" value="수정" onclick="submitContents(this)" class="btn-m ml5" />
+			<input type="submit" value="수정" onclick="submitContents(this)" class="btn-m ml5"  style="cursor:pointer;"/>
 		</div>
         </form>
 		
