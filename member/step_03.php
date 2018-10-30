@@ -165,6 +165,10 @@
  $("#ck").click(function(){
 	 var id = $("input[name='id']").val();
 	 var chk = RegExp(/^[A-Za-z0-9_\.\-]/);
+	 if(id == ''){
+		 alert("아이디 입력해주세요.");
+		 return false;
+	 }
 	 $.ajax({
 		 url: "/member/idChk.php",
 		 type:"POST",
@@ -173,13 +177,14 @@
 	 .done(function(result){
 		 //alert(result);
 		 if(result == 'N'){
+			 alert("중복된 아이디입니다.")
 			$("input[name='id']").val("");
 		 }else if(result == "Y") {
-			 if(chk.test(id)){
-				 alert("아이디가 사용가능합니다.");
-			 }else{
-				 alert("아이디를 수정해주세요");
+			 if(!chk.test(id)){
+				 alert("아이디는 영문자로 시작하는 4~15자리의 영문소문자,숫자만 가능합니다.");
 				 $("input[name='id']").val("");
+			 }else{
+				 alert("아이디가 사용가능합니다.");
 			 }
 		 }
 	 })

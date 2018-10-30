@@ -75,7 +75,7 @@ DROP TABLE IF EXISTS `tb_review`;
 
 CREATE TABLE `tb_review` (
   `board_no` int(10) NOT NULL AUTO_INCREMENT,
-  `id` varchar(25) NOT NULL COMMENT '리뷰작성자',
+  `user_id` varchar(25) DEFAULT NULL,
   `title` varchar(100) NOT NULL COMMENT '리뷰제목',
   `contents` text NOT NULL COMMENT '내용',
   `cnt` int(10) NOT NULL COMMENT '조회수',
@@ -86,11 +86,11 @@ CREATE TABLE `tb_review` (
   PRIMARY KEY (`board_no`),
   KEY `FK_tb_review_category_no_tb_category_category_no` (`category_no`),
   CONSTRAINT `FK_tb_review_category_no_tb_category_category_no` FOREIGN KEY (`category_no`) REFERENCES `tb_category` (`category_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=euckr COMMENT='수강후기';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=euckr COMMENT='수강후기';
 
 /*Data for the table `tb_review` */
 
-insert  into `tb_review`(`board_no`,`id`,`title`,`contents`,`cnt`,`category_no`,`reg_date`,`lecture_no`,`satisfy`) values (1,'test','토익준비 열심히!!','토익준비를 해야돼&nbsp;',10,2,'2018-10-30 09:40:44',6,1),(2,'test','토익준비','<b><span style=\"font-size: 24pt;\">지웠다..&nbsp;</span><br style=\"clear:both;\"><span style=\"font-size: 24pt;\">다시넣었다.&nbsp;<img src=\"/upload/temp/15408601121540860112811__6.jpg\" title=\"15408601121540860112811__6.jpg\"><br style=\"clear:both;\"></span></b>',7,3,'2018-10-30 09:47:57',4,1),(3,'test','재밌다~','<img src=\"/upload/temp/15408597661540859766906__13.jpg\" title=\"15408597661540859766906__13.jpg\"><br style=\"clear:both;\"><img src=\"/upload/temp/15408597661540859766909__12.jpg\" title=\"15408597661540859766909__12.jpg\"><br style=\"clear:both;\"><br>',1,3,'2018-10-30 09:36:09',4,5),(4,'test','리더십을 준비중 ','ㅇㅇ<img src=\"/upload/temp/15408601451540860145638__10.jpg\" title=\"15408601451540860145638__10.jpg\"><br style=\"clear:both;\">',3,2,'2018-10-30 09:42:27',6,5);
+insert  into `tb_review`(`board_no`,`user_id`,`title`,`contents`,`cnt`,`category_no`,`reg_date`,`lecture_no`,`satisfy`) values (1,'test','토익준비 열심히!!','토익준비를 해야돼&nbsp;',10,2,'2018-10-30 09:40:44',6,1),(2,'test','토익준비','<b><span style=\"font-size: 24pt;\">지웠다..&nbsp;</span><br style=\"clear:both;\"><span style=\"font-size: 24pt;\">다시넣었다.&nbsp;<img src=\"/upload/temp/15408601121540860112811__6.jpg\" title=\"15408601121540860112811__6.jpg\"><br style=\"clear:both;\"></span></b>',13,3,'2018-10-30 09:47:57',4,1),(3,'test','재밌다~','<img src=\"/upload/temp/15408597661540859766906__13.jpg\" title=\"15408597661540859766906__13.jpg\"><br style=\"clear:both;\"><img src=\"/upload/temp/15408597661540859766909__12.jpg\" title=\"15408597661540859766909__12.jpg\"><br style=\"clear:both;\"><br>',2,3,'2018-10-30 09:36:09',4,5),(4,'test','리더십을 준비중 ','ㅇㅇ<img src=\"/upload/temp/15408601451540860145638__10.jpg\" title=\"15408601451540860145638__10.jpg\"><br style=\"clear:both;\">',4,2,'2018-10-30 09:42:27',6,5),(5,'test4','설득하자 ','<img src=\"/upload/temp/15408628771540862877269__Hydrangeas.jpg\" title=\"15408628771540862877269__Hydrangeas.jpg\"><br style=\"clear:both;\"><br>',3,0,'2018-10-30 10:27:59',1,4),(6,'test4','영어가 늘었어요~','<img src=\"/upload/temp/15408632031540863203356__11.JPG\" title=\"15408632031540863203356__11.JPG\"><br style=\"clear:both;\"><img src=\"/upload/temp/15408632031540863203354__12.jpg\" title=\"15408632031540863203354__12.jpg\"><br style=\"clear:both;\"><br>',2,3,'2018-10-30 10:33:24',4,5),(7,'test4','재밌다.','ㅎㅎ',1,1,'2018-10-30 10:34:28',8,5),(8,'test4','','ㅌㅌ',0,0,'2018-10-30 10:35:05',0,5),(9,'test4','','<br>',0,0,'2018-10-30 10:43:08',0,5),(10,'test4','','<br>',0,0,'2018-10-30 10:43:44',0,5),(11,'test4','','<br>',0,0,'2018-10-30 10:45:05',0,5),(12,'test4','프레젠테이션 ','재미있게 준비중&nbsp;',19,0,'2018-10-30 10:45:41',1,5),(13,'test4','무역실무 ','<img src=\"/upload/temp/15408672711540867271374__7.jpg\" title=\"15408672711540867271374__7.jpg\"><br style=\"clear:both;\"><br>',1,1,'2018-10-30 11:41:13',9,3);
 
 /*Table structure for table `tb_review_file` */
 
@@ -106,11 +106,11 @@ CREATE TABLE `tb_review_file` (
   `file_size` int(10) NOT NULL COMMENT '파일사이즈',
   `file_group_no` int(11) NOT NULL COMMENT '첨부파일그룹번호',
   PRIMARY KEY (`file_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=euckr COMMENT='수강후기 첨부파일';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=euckr COMMENT='수강후기 첨부파일';
 
 /*Data for the table `tb_review_file` */
 
-insert  into `tb_review_file`(`file_no`,`sys_name`,`file_type`,`file_path`,`board_no`,`ori_name`,`file_size`,`file_group_no`) values (1,'15408597491540859749713__9.jpg','jpg','/upload/temp/15408597491540859749713__9.jpg',2,'9.jpg',228,0),(2,'15408597661540859766906__13.jpg','jpg','/upload/temp/15408597661540859766906__13.jpg',3,'13.jpg',83,0),(3,'15408597661540859766909__12.jpg','jpg','/upload/temp/15408597661540859766909__12.jpg',3,'12.jpg',273,0),(4,'15408601451540860145638__10.jpg','jpg','/upload/temp/15408601451540860145638__10.jpg',4,'10.jpg',166,0);
+insert  into `tb_review_file`(`file_no`,`sys_name`,`file_type`,`file_path`,`board_no`,`ori_name`,`file_size`,`file_group_no`) values (1,'15408597491540859749713__9.jpg','jpg','/upload/temp/15408597491540859749713__9.jpg',2,'9.jpg',228,0),(2,'15408597661540859766906__13.jpg','jpg','/upload/temp/15408597661540859766906__13.jpg',3,'13.jpg',83,0),(3,'15408597661540859766909__12.jpg','jpg','/upload/temp/15408597661540859766909__12.jpg',3,'12.jpg',273,0),(4,'15408601451540860145638__10.jpg','jpg','/upload/temp/15408601451540860145638__10.jpg',4,'10.jpg',166,0),(5,'15408628771540862877269__Hydrangeas.jpg','jpg','/upload/temp/15408628771540862877269__Hydrangeas.jpg',5,'Hydrangeas.jpg',582,0),(6,'15408632031540863203356__11.JPG','JPG','/upload/temp/15408632031540863203356__11.JPG',6,'11.JPG',115,0),(7,'15408632031540863203354__12.jpg','jpg','/upload/temp/15408632031540863203354__12.jpg',6,'12.jpg',273,0),(8,'15408672711540867271374__7.jpg','jpg','/upload/temp/15408672711540867271374__7.jpg',13,'7.jpg',200,0);
 
 /*Table structure for table `tb_review_file_group` */
 
@@ -156,11 +156,11 @@ CREATE TABLE `tb_user` (
   `user_gb` varchar(5) NOT NULL DEFAULT 'user',
   `lecture_no` int(11) DEFAULT NULL,
   PRIMARY KEY (`no`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tb_user` */
 
-insert  into `tb_user`(`no`,`id`,`name`,`pw`,`email`,`phone`,`tel`,`post`,`addr`,`receive_mail`,`receive_sms`,`detail_addr`,`user_gb`,`lecture_no`) values (3,'egoing','홍길동','6fec2a9601d5b3581c94f2150','dfsfsdf@naver.com','1234',NULL,'05263','서울 강동구 암사길 11234','Y','Y','','user',NULL),(4,'test','홍길동','6fec2a9601d5b3581c94f2150','test2@naver.com','01023456789','','05525','서울 송파구 풍성로 42233','N','Y','','admin',NULL),(5,'asdf','감','f0e4c2f76c58916ec258f2468','asdf@asdf','1234','021234567','06252','서울 강남구 강남대로 328강남역 쉐르빌 ㅁㄴㅇㄹ','N','N','','admin',NULL),(12,'test3','김구','9f86d081884c7d659a2feaa0c','dfsfsdf@sfddsfsf','01044445555','2221111111','42957','대구 달성군 화원읍 류목정길 5333','N','Y','','user',NULL),(17,'asd','홍길동','9f86d081884c7d659a2feaa0c','dfsfsdf@hanmail.net','01012341111',NULL,'06313','서울 강남구 양재대로 333','N','Y','23123','user',NULL),(18,'test1','김기동','9f86d081884c7d659a2feaa0c','test@naver.com','01033333333',NULL,'06267','서울 강남구 강남대로 238','N','N','스카이쏠라빌딩','user',NULL),(19,'','','e3b0c44298fc1c149afbf4c89','@','',NULL,'','','','','','user',NULL),(20,'test2','김숙','9f86d081884c7d659a2feaa0c','et@naver.com','01011111313','0','61763','광주 남구 판촌길 23-4','N','N','1층','user',NULL);
+insert  into `tb_user`(`no`,`id`,`name`,`pw`,`email`,`phone`,`tel`,`post`,`addr`,`receive_mail`,`receive_sms`,`detail_addr`,`user_gb`,`lecture_no`) values (3,'egoing','홍길동','6fec2a9601d5b3581c94f2150','dfsfsdf@naver.com','1234',NULL,'05263','서울 강동구 암사길 11234','Y','Y','','user',NULL),(4,'test','홍길동','6fec2a9601d5b3581c94f2150','test2@naver.com','01023456789','','05525','서울 송파구 풍성로 42233','N','Y','','admin',NULL),(5,'asdf','감','f0e4c2f76c58916ec258f2468','asdf@asdf','1234','021234567','06252','서울 강남구 강남대로 328강남역 쉐르빌 ㅁㄴㅇㄹ','N','N','','admin',NULL),(12,'test3','김구','9f86d081884c7d659a2feaa0c','dfsfsdf@sfddsfsf','01044445555','2221111111','42957','대구 달성군 화원읍 류목정길 5333','N','Y','','user',NULL),(17,'asd','홍길동','9f86d081884c7d659a2feaa0c','dfsfsdf@hanmail.net','01012341111',NULL,'06313','서울 강남구 양재대로 333','N','Y','23123','user',NULL),(18,'test1','김기동','9f86d081884c7d659a2feaa0c','test@naver.com','01033333333',NULL,'06267','서울 강남구 강남대로 238','N','N','스카이쏠라빌딩','user',NULL),(19,'','','e3b0c44298fc1c149afbf4c89','@','',NULL,'','','','','','user',NULL),(20,'test2','김숙','9f86d081884c7d659a2feaa0c','et@naver.com','01011111313','0','61763','광주 남구 판촌길 23-4','N','N','1층','user',NULL),(22,'test4','김태리','9f86d081884c7d659a2feaa0c','test2@gmail.com','01022221111','024500000','13480','경기 성남시 분당구 대왕판교로 477','N','Y','낙생고등학교','user',NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

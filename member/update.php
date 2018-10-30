@@ -28,13 +28,13 @@ include '../include/db.php';
 $pwHash = hash("sha256",$pw);
 if($tel != ''){
     $sql = "update tb_user 
-    set tel ='$tel'
-      ,email = '$email'
+    set email = '$email'
        ,addr='$addr',detail_Addr='$dAddr' 
        where id = '$id' ";
 }else{
     $sql = "update tb_user 
                set email = '$email'
+               ,tel ='$tel'
        ,addr='$addr',detail_Addr='$dAddr' 
        where id = '$id' ";
 }
