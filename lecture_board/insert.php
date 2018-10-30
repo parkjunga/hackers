@@ -9,7 +9,7 @@ $id = $_SESSION['id'];
 $src = 'src';
 
 // 게시글 sql 
-$sql = "INSERT INTO tb_review(id,title,contents,category_no,reg_date,satisfy,lecture_no)VALUES('$id','$title','$ir1','$type',NOW(),'$satisfy','$type2')";
+$sql = "INSERT INTO tb_review(user_id,title,contents,category_no,reg_date,satisfy,lecture_no)VALUES('$id','$title','$ir1','$type',NOW(),'$satisfy','$type2')";
 //echo $sql;
 $rst = mysql_query($sql);
 echo $rst;
@@ -89,17 +89,8 @@ $s= preg_match_all("/<img src=[']?([^>']+)[']?[^>]* title=[']?([^>']+)[']?[^>]*>
      }
     };
      
-    //echo("<script>location.href='/lecture_board/index.php?mode=list';</script>");
+    echo("<script>location.href='/lecture_board/index.php?mode=list';</script>");
 };
-
-
-/*
-먼저 
-1. 이미지 파일 여부를 확인 
-2. 파일이있다면 파일의 갯수확인 
-3. 파일을 먼저 insert 후 
-4. 파일의 번호를 찾아 게시글에 넣어준다.
-*/
 
 
 ?>

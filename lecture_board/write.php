@@ -74,6 +74,7 @@ function showSub(obj) {
 			<tbody>
 				<tr>
 					<th scope="col">강의</th>
+					<input type="hidden" name="id" value="<?= $_SESSION['id'] ?>"/>
 					<td>
 						<select name="type" class="input-sel" style="width:160px" onChange="showSub(this.options[this.selectedIndex].value);">
 							<option value="">분류</option>
@@ -162,8 +163,23 @@ function showSub(obj) {
    				// 에디터의 내용이 textarea에 적용됩니다.
     			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
     			// 에디터의 내용에 대한 값 검증은 이곳에서 document.getElementById("ir1").value를 이용해서 처리하면 됩니다. 
-    			try {
-        		elClickedObj.form.submit();
+					var type = $("select[name='type']").val();
+					var title = $("input[name='title']").val();
+					var ir1 = $("textarea[name='ir1']").val();
+    			try {	
+					if(type == '' || type == null){
+						alert("분류를 선택해주세요");
+					return false;
+					}
+					if(title == '' || title == null){
+						alert("제목을 입력해주세요");
+					return false;
+					}
+					if(ir1 == '' || ir1 == null){
+						alert("내용이 들어가지 않았습니다.");
+					return false;
+					}
+        			elClickedObj.form.submit();
     			} catch(e) {}
 			}
 </script>
@@ -171,7 +187,7 @@ function showSub(obj) {
 		<div class="box-btn t-r">
 			<a href="/lecture_board/index.php?mode=list" class="btn-m-gray">목록</a>
 			<!-- <a href="#" class="btn-m ml5">저장</a> -->
-			<input type="submit" value="전송" onclick="submitContents(this)" class="btn-m ml5" style="cursor:pointer;" />
+			<input id="insertBtn" type="button" value="전송" onclick="submitContents(this)" class="btn-m ml5" style="cursor:pointer;" />
 		</div>
         </form>
 		

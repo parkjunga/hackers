@@ -32,7 +32,6 @@
 
 	$result = mysql_query($sql);
 	$row = mysql_fetch_array($result);
-	//echo $row;
 	$cnt = "update tb_review r
 	           set r.cnt = r.cnt+1
 			where r.board_no = '$no'";
@@ -90,7 +89,7 @@
 							</span>
 						</div>
 						<div class="box-rating">
-						<span class="tit_rating">작성자 : <?= $row['id']?></span>
+						<span class="tit_rating">작성자 : <?= $row['user_id']?></span>
 						</div>
 						<div id="alink"><?= $row['contents'] ?></div>
 						<?
@@ -110,7 +109,7 @@
 		</table>
 		
 		
-		<p class="mb15"><strong class="tc-brand fs16"><?= $row['id'] ?>님의 수강하신 강의 정보</strong></p>
+		<p class="mb15"><strong class="tc-brand fs16"><?= $row['user_id'] ?>님의 수강하신 강의 정보</strong></p>
 		
 		<table border="0" cellpadding="0" cellspacing="0" class="tbl-lecture-list">
 			<caption class="hidden">강의정보</caption>
@@ -139,8 +138,7 @@
 		<div class="box-btn t-r">
 			<a href="/lecture_board/index.php?mode=list" class="btn-m-gray">목록</a>
 			<? 
-			$id = $_SESSION['id'];
-			if($id == $row['id']){
+			if($_SESSION['id'] == $row['user_id']){
 			?>
 			<a href="/lecture_board/index.php?mode=modify&&review_no=<?= $no ?>" class="btn-m ml5">수정</a>
 			<a href="/lecture_board/index.php?mode=delete&&review_no=<?= $no ?>" class="btn-m-dark">삭제</a>
@@ -168,7 +166,7 @@
  JOIN `tb_lecture` l
   ON r.`lecture_no` = l.`lecture_no`
  JOIN `tb_user` u
-  ON r.`id` = u.`id`
+  ON r.`user_id` = u.`id`
  JOIN `tb_category` c
   ON r.`category_no` = c.`category_no`";
 

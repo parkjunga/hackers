@@ -146,8 +146,8 @@
 				</table>
 
 				<div class="box-btn">
-				    <input id="cssBtn-1" type="submit" value="회원가입" class="btn-1" style="cursor:pointer; />
-					<!-- <a href="#" class="btn-l">회원가입</a> -->
+				    <input id="cssBtn-1" type="submit" value="회원가입" class="btn-1" style="cursor:pointer;" />
+					<!-- <a href="#" class="btn-l">회원가입</a>-->
 				</div>
 				</form>
 			</div>
@@ -171,7 +171,7 @@
 		 data:{id:id}
 	 })
 	 .done(function(result){
-		 alert(result);
+		 //alert(result);
 		 if(result == 'N'){
 			$("input[name='id']").val("");
 		 }else if(result == "Y") {

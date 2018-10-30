@@ -95,7 +95,7 @@
 			data: {code:code}
 			})      
 			.done(function(result) {
-				alert(result);
+				//alert(result);
 				if(result == 'Y:'){
 					alert("인증코드가 일치합니다.");
 					//window.location.href = '';

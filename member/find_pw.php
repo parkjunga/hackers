@@ -184,7 +184,7 @@ frm.email2.value = frm.emailChnage.options[frm.emailChnage.selectedIndex].text;
 		type:"POST",
 		data:{code:code}
 	}).done(function(result){
-		alert(result);
+		//alert(result);
 		if(result == 'Y:'){
 			alert("일치합니다.");
 			//location.href="/member/index.php?mode=find_pw_complete";
@@ -193,6 +193,7 @@ frm.email2.value = frm.emailChnage.options[frm.emailChnage.selectedIndex].text;
 			alert("불일치합니다.");
 		}
 	})
+	return false;
 })
    
 </script>

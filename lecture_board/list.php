@@ -17,7 +17,7 @@
  JOIN `tb_lecture` l
   ON r.`lecture_no` = l.`lecture_no`
  JOIN `tb_user` u
-  ON r.`id` = u.`id`
+  ON r.`user_id` = u.`id`
  JOIN `tb_category` c
   ON r.`category_no` = c.`category_no`";
 

@@ -188,6 +188,8 @@ $("#smsBtn").click(function(){
 	return false;
 })
 
+
+// 인증코드 확인
 $("#confBtn").click(function(){
 	var code = $("input[name='code']").val();
 	var name = $("input[name='name']").val();
@@ -204,18 +206,20 @@ $("#confBtn").click(function(){
 		type:"POST",
 		data:{code:code,name:name,phone:phone,email:email}
 	}).done(function(result){
-		alert(result);
+		//alert(result);
 		var resultS = result.split(':');
-		alert(resultS[0]);
+		//alert(resultS[0]);
 		 if(resultS[0] == 'Y'){
 			alert("일치합니다.");
-			alert("아이디는 " + resultS[1] + "입니다.");
+			//alert("아이디는 " + resultS[1] + "입니다.");
 			$("#findId").submit();
 			//location.href="/member/index.php?mode=find_id_complete";
 		}else{
 			alert("불일치합니다.");
 		} 
+	
 	})
+	return false;
 })
 
 </script>
