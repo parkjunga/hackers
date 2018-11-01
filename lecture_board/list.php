@@ -1,78 +1,11 @@
 <?php
 
-
+include 'Controller.php';
+$controller = new Controller();
+$result =$controller->boardList($_GET['type'],$_GET['$type2'],$_GET['$keyword'],$_GET['category_no']);
  // 검색쿼리
- $type = $_GET['type'];
- echo $type;
- echo '<br/>';
- $type2 = $_GET['type2'];
- echo $type2;
- echo '<br/>';
- $keyword = $_GET['keyword'];
- echo $keyword;
- $cNo = $_GET['category_no'];
-		
- $query = "SELECT *
- FROM `tb_review` r
- JOIN `tb_lecture` l
-  ON r.`lecture_no` = l.`lecture_no`
- JOIN `tb_user` u
-  ON r.`user_id` = u.`id`
- JOIN `tb_category` c
-  ON r.`category_no` = c.`category_no`";
-
-
- $where = "WHERE c.category_no = '$type'
-			AND l.lecture_title LIKE '%$keyword%' order by r.board_no desc";
- 
- $where2 ="WHERE c.category_no = '$type'
- AND u.name LIKE '%$keyword%' order by r.board_no desc";
-
- 
-
- if($type != '' ){
-	 if($type2 == 1){
-		$sql =$query.$where;
-	 }else{
-		$sql = $query.$where2;
-	 }
- }else{
-	 // 총 데이터 수 
-	 if($cNo != ''){
-		$sql = $query."where c.category_no = '$cNo' order by r.board_no desc";
-	 } else{
-		 $sql = $query."order by r.board_no desc";
-	 }
- }
- 
- $result = mysql_query($sql); 
- while($sRow = mysql_fetch_array($result)){
-	//echo $sRow['lecture_title'];
-	//echo '<br/>';
-};
- $total = mysql_num_rows($result); 
- $page = ($_GET['page'])?$_GET['page']:1;
-
- 
-
  $pageSize = 10; // 페이지당 보여줄 게시글 수 
  $blockSize = 5; // 블록 당 페이지 수
-
- $pageN = ceil($total/$pageSize); // 총 페이지 
- $block = ceil($pageN/$blockSize); 
- $nowBlock = ceil($page/$blockSize); // 현재 위치한 블록 체크 
- $start_p = ($nowBlock*$blockSize)-($blockSize-1); 
-
- if($start_p <= 1){
-	 $start_p = 1;
- }
- 
- $end_p = $nowBlock * $blockSize;
- 
- if($pageN <= $end_p){
-	 $end_p = $pageN;
- }
- 
 ?>
 <div id="container" class="container">
 	<?php
@@ -88,11 +21,11 @@
 			</div>
 		</div>
 		<ul class="tab-list tab5">
-			<li class="<? if($cNo == '') echo 'on' ?>"><a href="/lecture_board/index.php?mode=list" >전체</a></li>
-			<li class="<? if($cNo == '0') echo 'on' ?>" ><a href="/lecture_board/index.php?mode=list&&category_no=0" >일반직무</a></li>
-			<li class="<? if($cNo == '1') echo 'on' ?>"><a href="/lecture_board/index.php?mode=list&&category_no=1" >산업직무</a></li>
-			<li class="<? if($cNo == '2') echo 'on' ?>"><a href="/lecture_board/index.php?mode=list&&category_no=2" >공통역량</a></li>
-			<li class="<? if($cNo == '3') echo 'on' ?>"><a href="/lecture_board/index.php?mode=list&&category_no=3" >어학 및 자격증</a></li>
+			<li class="<? if($_GET['category_no'] == '') echo 'on' ?>"><a href="/lecture_board/index.php?mode=list" >전체</a></li>
+			<li class="<? if($_GET['category_no'] == '0') echo 'on' ?>" ><a href="/lecture_board/index.php?mode=list&&category_no=0" >일반직무</a></li>
+			<li class="<? if($_GET['category_no'] == '1') echo 'on' ?>"><a href="/lecture_board/index.php?mode=list&&category_no=1" >산업직무</a></li>
+			<li class="<? if($_GET['category_no'] == '2') echo 'on' ?>"><a href="/lecture_board/index.php?mode=list&&category_no=2" >공통역량</a></li>
+			<li class="<? if($_GET['category_no'] == '3') echo 'on' ?>"><a href="/lecture_board/index.php?mode=list&&category_no=3" >어학 및 자격증</a></li>
 		</ul>
 	
 		<div class="search-info">
@@ -139,43 +72,43 @@
 			<tbody>
 			<!-- 베스트 글 -->
 			<?
-			 $cntSql = $query."order by r.cnt desc Limit 0,3";
-             $cntRst = mysql_query($cntSql);
-			 while($cntRow = mysql_fetch_array($cntRst)){
-				$star = $cntRow['satisfy'];
-				if($cntRow['satisfy'] == '0'){
+			 $bestSql = $result['sql']."order by r.cnt desc Limit 0,3";
+             $bestRst = mysql_query($bestSql);
+			 while($bestRow = mysql_fetch_array($bestRst)){
+				$star = $bestRow['satisfy'];
+				if($bestRow['satisfy'] == '0'){
 					$star = '0';
 				}
-				else if($cntRow['satisfy'] == '1') {
+				else if($bestRow['satisfy'] == '1') {
 					$star = '20';
 				}
-				else if($cntRow['satisfy'] == '2') {
+				else if($bestRow['satisfy'] == '2') {
 					$star = '40';
 				}
-				else if($cntRow['satisfy'] == '3') {
+				else if($bestRow['satisfy'] == '3') {
 					$star = '60';
 				}
-				else if($cntRow['satisfy'] == '4') {
+				else if($bestRow['satisfy'] == '4') {
 					$star = '80';
-				}else if($cntRow['satisfy'] == '5') {
+				}else if($bestRow['satisfy'] == '5') {
 					$star = '100';
 				} 
 			 ?>
 				<!-- set -->
 				<tr class="bbs-sbj">
 					<td><span class="txt-icon-line"><em>BEST</em></span></td>
-					<td><?= $cntRow['category_title']?></td>
+					<td><?= $bestRow['category_title']?></td>
 					<td>
-                    <a href="/lecture_board/index.php?mode=view&&review_no=<?= $cntRow['board_no']?>"  >
-							<span class="tc-gray ellipsis_line">수강 강의명 : <?= $cntRow['lecture_title']?></span>
-							<strong class="ellipsis_line"><?= $cntRow['title']?></strong>
+                    <a href="/lecture_board/index.php?mode=view&&review_no=<?= $bestRow['board_no']?>"  >
+							<span class="tc-gray ellipsis_line">수강 강의명 : <?= $bestRow['lecture_title']?></span>
+							<strong class="ellipsis_line"><?= $bestRow['title']?></strong>
 						</a>
 					</td>
 					<td class="last"><span class="star-rating">
 							<span class="star-inner" style="width:<?= $star ?>%"></span>
 						</span></td>
-					<td class="last"><?= $cntRow['name']?></td>
-					<td class="last"><?= $cntRow['cnt']?></td>
+					<td class="last"><?= $bestRow['name']?></td>
+					<td class="last"><?= $bestRow['cnt']?></td>
 				</tr>
 				<?
 			 }
@@ -183,30 +116,29 @@
 				<!-- 일반 게시글 -->
 				<?php
 				// $totalSize는 한페이지당 뿌려줄 데이터 수 
-				$s_point = ($page-1)*$pageSize; 
-				if($type != '' ){
-					if($type2 == 1){
-					   $data = $query.$where.' Limit '.$s_point.','.$pageSize;
+				$s_point = ($result['page']-1)*$pageSize; 
+				if($_GET['type'] != '' ){
+					if($_GET['type2']== 1){
+					   $data = $result['sql'].$result['where'].' Limit '.$s_point.','.$pageSize;
 					}else{
-						$data = $query.$where2.' Limit '.$s_point.','.$pageSize;
+						$data = $result['sql'].$result['where2'].' Limit '.$s_point.','.$pageSize;
+						echo $data;
 					}
 				}else{
 					// 총 데이터 수 
-					if($cNo != ''){
-						$data = $query."where c.category_no = '$cNo' order by r.board_no desc Limit ".$s_point.','.$pageSize;
+					if($_GET['category_no'] != ''){
+						$data = $result['sql'].
+								"where c.category_no =" .$_GET['category_no']. 
+							  "order by r.board_no desc 
+							  Limit ".$s_point.','.$pageSize;
 					}else{
-						$data = $query."order by r.board_no desc Limit ".$s_point.','.$pageSize;
+						$data = $result['sql']."order by r.board_no desc Limit ".$s_point.','.$pageSize;
 					}
 					
 				}
 				
 				$rst = mysql_query($data);
-				while($sRow = mysql_fetch_array($result)){
-				   echo $sRow['lecture_title'];
-			   };
-				// total은 총 데이터수 
-				for($i=1; $i<=$total; $i++){
-				$row = mysql_fetch_array($rst);
+				while($row = mysql_fetch_array($rst)){
 				$star = $row['satisfy'];
 				if($row['satisfy'] == '0'){
 					$star = '0';
@@ -253,17 +185,17 @@
 		</table>
 
 		<div class="box-paging">
-			<a href="<?= $PHP_SELF?>?page=<?= $start_p?>"><i class="icon-first"><span class="hidden">첫페이지</span></i></a>
-			<a href="<?= $PHP_SELF?>?page=<?=$start_p-1?>"><i class="icon-prev"><span class="hidden">이전페이지</span></i></a>
+			<a href="<?= $PHP_SELF?>?page=<?= $result['start']?>"><i class="icon-first"><span class="hidden">첫페이지</span></i></a>
+			<a href="<?= $PHP_SELF?>?page=<? if($result['page'] != 1){echo $result['start']-1;}else{echo $result['start'];}?>"><i class="icon-prev"><span class="hidden">이전페이지</span></i></a>
 			<?
-			for($p=$start_p; $p<=$end_p; $p++){
+			for($p=$result['start']; $p<=$result['end']; $p++){
 			?>
-			<a id="paging" href="<?= $PHP_SELF?>?page=<?=$p?>" <? 	if($page == $p){ echo 'class="active"';}?> ><?=$p?></a>
+			<a id="paging" href="<?= $PHP_SELF?>?page=<?=$p?>" <? 	if($result['page'] == $p){ echo 'class="active"';}?> ><?=$p?></a>
 			<?
 			}
 			?>
-			<a href="<?$PHP_SELF?>?page=<?= $end_p+1?>"><i class="icon-next"><span class="hidden">다음페이지</span></i></a>
-			<a href="<?$PHP_SELF?>?page=<?= $end_p?>"><i class="icon-last"><span class="hidden">마지막페이지</span></i></a>
+			<a href="<?$PHP_SELF?>?page=<? if($result['page'] != $result['end']){echo $result['end']+1;}else{echo $result['end'];}?>"><i class="icon-next"><span class="hidden">다음페이지</span></i></a>
+			<a href="<?$PHP_SELF?>?page=<?= $result['end']?>"><i class="icon-last"><span class="hidden">마지막페이지</span></i></a>
 		</div>
 
 		<div class="box-btn t-r">

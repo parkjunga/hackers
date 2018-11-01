@@ -1,6 +1,6 @@
 <?php 
- include "../include/db.php";
-  
+ //include "../include/db.php";
+ 
  $name = $_POST['name'];
  $id = $_POST['id'];
  $pw = $_POST['password'];

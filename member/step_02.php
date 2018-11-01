@@ -1,5 +1,11 @@
 <!-- 휴대폰 인증  -->
-
+<?
+if($_POST['agree'] != '0'){
+	echo '<script>
+	alert("이용약관에 동의가 되지 않은 상태입니다.")
+	history.back();</script>';
+}
+?>
 <div id="container" class="container-full">
 	<div id="content" class="content">
 		<div class="inner">
@@ -30,11 +36,13 @@
 						<p>주민번호 없이 메시지 수신가능한 휴대폰으로 1개 아이디만 회원가입이 가능합니다. </p>
 
 						<br />
-			            <form id="tForm" action="/member/index.php?mode=step_03" method="POST">
-						<input type="text" name="phone1" class="input-text" maxlength="3" style="width:50px" maxlength="3"/> - 
-						<input type="text" name="phone2" class="input-text" maxlength="4" style="width:50px" maxlength="4"/> - 
-						<input type="text" name="phone3" class="input-text" maxlength="4" style="width:50px" maxlength="4"/>
-						<input type="button" id="phoneC" value="인증번호받기" class="btn-s-line" style="cursor:pointer;">
+						<form id="tForm" action="/member/index.php?mode=step_03" method="POST">
+						<input type="hidden" name="mode" value="0" />
+						<input type="hidden" name="agree" value=<?= $_POST['agree'] ?>/>
+						<input type="text" name="phone[]" class="input-text" maxlength="3" style="width:50px" maxlength="3"/> - 
+						<input type="text" name="phone[]" class="input-text" maxlength="4" style="width:50px" maxlength="4"/> - 
+						<input type="text" name="phone[]" class="input-text" maxlength="4" style="width:50px" maxlength="4"/>
+						<input type="button" id="sendCode" value="인증번호받기" class="btn-s-line" style="cursor:pointer;">
 						<!--<a href="#" class="btn-s-line">인증번호 받기</a>-->
                         </form>
 					    <br /><br />
@@ -50,45 +58,46 @@
 		</div>
     </div>
    <script>
-      $("#phoneC").click(function(){
+      $("#sendCode").click(function(){
 		var chk1 = RegExp(/^01([0|1|6|7|8|9]?)$/);
 		var chk2 = RegExp( /^([0-9]{3,4}?)$/);
 		var chk3 = RegExp( /^([0-9]{4}?)$/);
-		var p1 = $("input[name='phone1']").val();
-		var p2 = $("input[name='phone2']").val();
-		var p3 = $("input[name='phone3']").val();
-		if(p1 == null || p1 == ''){
+		var mode = $("input[name='mode']").val();
+		if($("input[name='phone[]']")[0].value == '' || $("input[name='phone[]']")[1].value == '' || $("input[name='phone[]']")[2].value == ''){
 			alert("번호가 입력되지않았습니다.")
 			return false;
 		}
-		if(p2 == null || p2 == ''){
-			alert("번호가 입력되지않았습니다.")
-			return false;
+		if (!chk1.test($("input[name='phone[]']")[0].value) || !chk2.test($("input[name='phone[]']")[1].value) || !chk3.test($("input[name='phone[]']")[2].value) ) {
+				alert("숫자만 입력이 가능합니다.");
+				return false;
 		}
-		if(p3 == null || p3 == ''){
-			alert("번호가 입력되지않았습니다.")
-			return false;
-		}else{
-			if (!chk1.test(p1)) {
-				alert("숫자만 입력이 가능합니다.");
-				return false;
-			}if(!chk2.test(p2)){
-				alert("숫자만 입력이 가능합니다.");
-				return false;
-			}if(!chk3.test(p3)){
-				alert("숫자만 입력이 가능합니다.");
-				return false;
-			}alert("인증번호가 발송되었습니다.");
-		}
-		
+		send(mode);
 	  })
-
-       $("#test").click(function(){
-		   var code = $("input[name='code']").val();
-		   if(code == null || code == ''){
+	 
+	 function send(val){
+		$.post("/member/mode.php",{val:val},function(data){
+				if(data == 'fail'){
+					alert("인증코드를 확인해주세요");
+					return false;
+				}else if(data =='success'){
+					$("#tForm").submit();
+				}else{
+					alert(data);
+				}
+				return data;
+			}) 
+	 }
+	 $("#test").click(function(){
+		var code = $("input[name='code']").val();
+		if($("input[name='code']").val() == null || $("input[name='code']").val() == ''){
 			   alert("인증코드를 입력해주세요.")
 			   return false;
-		   }else{
+		   }
+		   send(code);
+	 });
+      /*  $("#test").click(function(){
+		   var code = $("input[name='code']").val();
+		   else{
 		   $.ajax({ 
 			url: "/member/test.php",
 			type: "POST",
@@ -108,7 +117,7 @@
 
 		   }
 		  
-			})
+			}) */
     
 
 

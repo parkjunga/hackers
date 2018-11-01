@@ -9,10 +9,15 @@
         }
     }).open();
  }
-
 </script>
 <!-- 회원가입 -->
-
+<?
+if(!$_POST['phone']){
+	echo '<script>
+	alert("인증 되지 않은 상태입니다.")
+	history.back();</script>';
+}
+?>
 <div id="container" class="container-full">
 	<div id="content" class="content">
 		<div class="inner">
@@ -48,7 +53,7 @@
 						<tr>
 							<th scope="col"><span class="icons">*</span>아이디</th>
 							<td><input type="text" name="id" class="input-text" style="width:302px" placeholder="영문자로 시작하는 4~15자의 영문소문자, 숫자"/>
-							<input type="button" id="ck" value="중복확인" class="btn-s-tin ml10">
+							<input type="button" id="overCheck" value="중복확인" class="btn-s-tin ml10">
 							<!-- a id="idChk" href="#" class="btn-s-tin ml10">중복확인</a> -->
 							</td>
 						</tr>
@@ -77,18 +82,11 @@
 							<th scope="col"><span class="icons">*</span>휴대폰 번호</th>
 							<td>
 							 <?php
-							$p1 = $_POST['phone1'];
-							$p2 = $_POST['phone2'];
-							$p3 = $_POST['phone3'];
-							echo '<input type="text" name="phone1" class="input-text" value='.$p1.' style="width:50px" readonly/> - ' ;
-							echo '<input type="text" name="phone2" class="input-text" value='.$p2.' style="width:50px" readonly/> -' ;
-							echo '<input type="text" name="phone3" class="input-text" value='.$p3.' style="width:50px" readonly/> ' ;
+							echo '<input type="text" name="phone1" class="input-text" value='.$_POST['phone'][0].' style="width:50px" readonly/> - ' ;
+							echo '<input type="text" name="phone2" class="input-text" value='.$_POST['phone'][1].' style="width:50px" readonly/> -' ;
+							echo '<input type="text" name="phone3" class="input-text" value='.$_POST['phone'][2].' style="width:50px" readonly/> ' ;
 							?>
-<!-- 							
-								<input type="text" name="phone1" class="input-text" style="width:50px"/> - 
-								<input type="text" name="phone2" class="input-text" style="width:50px"/> - 
-								<input type="text" name="phone3" class="input-text" style="width:50px"/>
- -->							</td>
+							</td>
 						</tr>
 						<tr>
 							<th scope="col"><span class="icons"></span>일반전화 번호</th>
@@ -147,7 +145,6 @@
 
 				<div class="box-btn">
 				    <input id="cssBtn-1" type="submit" value="회원가입" class="btn-1" style="cursor:pointer;" />
-					<!-- <a href="#" class="btn-l">회원가입</a>-->
 				</div>
 				</form>
 			</div>
@@ -155,14 +152,14 @@
 	</div>
 </div>
 <script>
-	function getSelectValue(frm)
+function getSelectValue(frm)
 {
  frm.email2.value = frm.emailChnage.options[frm.emailChnage.selectedIndex].text;
  if(frm.emailChnage.options[frm.emailChnage.selectedIndex].value == user){
     frm.email2.value = "";
  }
 }
- $("#ck").click(function(){
+ $("#overCheck").click(function(){
 	 var id = $("input[name='id']").val();
 	 var chk = RegExp(/^[A-Za-z0-9_\.\-]/);
 	 if(id == ''){

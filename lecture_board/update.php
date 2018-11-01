@@ -98,7 +98,7 @@ $s= preg_match_all("/<img src=[']?([^>']+)[']?[^>]* title=[']?([^>']+)[']?[^>]*>
          mysql_error();
      }
     };
-     
+    
     echo("<script>location.href='/lecture_board/index.php?mode=list';</script>");
 };
 

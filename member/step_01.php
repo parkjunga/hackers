@@ -1,8 +1,18 @@
 <!-- 약관동의 -->
-
+<style>
+#nextJoin {
+	min-width: 84px;
+    height: 60px;
+    padding: 0 50px;
+    font-size: 16px;
+    line-height: 58px;
+	cursor:pointer;
+}
+</style>
 <div id="container" class="container-full">
 	<div id="content" class="content">
 		<div class="inner">
+			<form id="agreeform" action="/member/index.php?mode=step_02" method="post">
 			<div class="tit-box-h3">
 				<h3 class="tit-h3">회원가입</h3>
 				<div class="sub-depth">
@@ -26,6 +36,7 @@
 				
 				<div class="agree-box">
 					<div class="agree-box-txt">
+						<input type="hidden" name="agree" value="0" />
 제 1 장 총칙
 
 제 1조 [목적]
@@ -481,9 +492,10 @@ Aqua Auth 컨텐츠의 녹화차단 - Aqua Director 컨텐츠의 다운로드 DR
 			</div>
 
 			<div class="box-btn">
-				<a href="/member/index.php?mode=step_02" class="btn-l" id="nextJoin">다음단계 (휴대폰인증)</a>
+				<!-- <a href="" class="btn-l" id="nextJoin">다음단계 (휴대폰인증)</a>  -->
+				<input type="submit" class="btn-1" id="nextJoin" value="다음단계(휴대폰인증)"/>
 			</div>
-
+</form>
 		</div>
 	</div>
 </div>
@@ -501,6 +513,7 @@ $(function(){
 			alert("개인정보 취급방침에 동의해주세요");
 			return false;
 		}
+		$("#agreeForm").submit();
 	});
 
 })

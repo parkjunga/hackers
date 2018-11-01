@@ -1,8 +1,11 @@
-<div id="wrap">
+
 <?php
 include '../include/header.php';
-
-	switch ($_GET['mode']) {
+include $_GET['mode'].".".php;
+if(!is_file($_GET['mode'].".".php)){
+	echo '페이지가 존재하지않습니다.';
+}
+/* 	switch ($_GET['mode']) {
 		case "step_01" :  
 		         include 'step_01.php';
 		        break;
@@ -34,34 +37,6 @@ include '../include/header.php';
 				  include 'modify.php';
 				  break;		           
 		default : include 'container.php';
-	}
-?>
-
-<script type="text/javascript">
-$(document).ready(function(){
-	//main_slider_applyclass
-	var bnrWrap = $('.slider-applyclass')
-	var bnr_slider = bnrWrap.find('.bxslider');
-
-	slider = bnr_slider.bxSlider({
-		auto: true,
-		mode : 'fade',
-		cutLimit: 4,
-		speed: 500,
-		autoStart:true,
-		pagerCustom: '#bx-pager-apply',
-		onSliderLoad: function(selector){
-			bnrWrap.css("overflow","visible");
-		}
-	});
-	$('.page-applyclass').mouseover(function(){
-		slider.startAuto();
-	});
-});
-</script>
-<?php
+	} */
 include '../include/footer.php';
 ?>
-</div>
-</body>
-</html>

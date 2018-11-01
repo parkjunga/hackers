@@ -46,6 +46,7 @@ $_SESSION['prev_refere'] = $_SERVER['HTTP_REFERER'];
 	}
 </style>
 </head><body>
+<div id="wrap">
 <!-- skip nav -->
 <div id="skip-nav">
 <a href="#content">본문 바로가기</a>

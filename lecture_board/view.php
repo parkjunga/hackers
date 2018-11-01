@@ -5,38 +5,11 @@
 <?php
 	include '../include/lnb.php';
 	$no = $_GET['review_no'];
-	// 글번호
-	
-	$test = "SELECT * from tb_review_file WHERE board_no = '$no'";
-	$rst = mysql_query($test);
-	$tRow = mysql_fetch_row($rst);
-	if($tRow == 0){
-	$sql = "SELECT * 
-	        FROM tb_review r
-			INNER JOIN tb_lecture l 
-			ON r.lecture_no = l.lecture_no 
-			INNER JOIN tb_file f 
-			ON l.file_no = f.file_no 
-			WHERE r.board_no = '$no'";
-	}else{
-		$sql = "SELECT * 
-	        FROM tb_review r
-			INNER JOIN tb_review_file rf
-			ON r.board_no = rf.board_no
-			INNER JOIN tb_lecture l 
-			ON r.lecture_no = l.lecture_no 
-			INNER JOIN tb_file f 
-			ON l.file_no = f.file_no 
-			WHERE r.board_no = '$no'";
-	}
-
-	$result = mysql_query($sql);
-	$row = mysql_fetch_array($result);
-	$cnt = "update tb_review r
-	           set r.cnt = r.cnt+1
-			where r.board_no = '$no'";
-	$rst = mysql_query($cnt);
-	//echo $rst;
+	include 'Controller.php';
+	$controller = new Controller();
+	$view = $controller->view($no);
+	$result = mysql_query($view[1]);
+    $row = mysql_fetch_array($result);
 	?>
 	<div id="content" class="content">
 		<div class="tit-box-h3">
@@ -56,7 +29,7 @@
 			</colgroup>
 			<tbody>
 				 <tr>
-					<th scope="col"><?= $row['title'] ?></th>
+					<th scope="col"><?= $result['row']['title'] ?></th>
 					<th scope="col" class="user-id">등록일 | <?= $row['reg_date'] ?> 조회수 <?= $row['cnt'] ?></th>
 				 </tr>
 				<tr>

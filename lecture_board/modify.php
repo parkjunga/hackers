@@ -24,19 +24,6 @@ function showSub(obj) {
 		 
 		}
 	})
-/* 
-    if(obj == 0) {
-
-        f.type2.style.display = "";
-        f.SUB5.style.display = "none";
-
-
-    } else {
-
-        f.type2.style.display = "none";
-        f.SUB5.style.display = "";
-
-     } */
 }
 
 
