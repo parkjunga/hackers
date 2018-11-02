@@ -1,6 +1,9 @@
 <?php
 
-include 'db.php';
+require_once 'Controller.php';
+$result = mysql_query($result['sql']);
+$row = mysql_fetch_assoc($result);
+/* include 'db.php';
 $phone = $_POST['phone1'].$_POST['phone2'].$_POST['phone3'];
 $name = $_POST['name'];
 $email = $_POST['email1'].'@'.$_POST['email2'];
@@ -14,7 +17,7 @@ $sql = "select *
          or email ='$email')"; 
 
 $result = mysql_query($sql);
-$row = mysql_fetch_assoc($result);
+$row = mysql_fetch_assoc($result); */
 
 ?>
 

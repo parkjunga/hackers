@@ -29,7 +29,7 @@
 			</colgroup>
 			<tbody>
 				 <tr>
-					<th scope="col"><?= $result['row']['title'] ?></th>
+					<th scope="col"><?= $row['title'] ?></th>
 					<th scope="col" class="user-id">등록일 | <?= $row['reg_date'] ?> 조회수 <?= $row['cnt'] ?></th>
 				 </tr>
 				<tr>

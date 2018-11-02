@@ -54,40 +54,11 @@
 							<th scope="col">성명</th>
 							<td><input type="text" name="name" class="input-text" style="width:302px" /></td>
 						</tr>
-	<!-- 					<tr>
-							<th scope="col">생년월일</th>
-							<td>
-								<select class="input-sel" style="width:148px">
-									<option value="">선택</option>
-									<option value="">선택입력</option>
-									<option value="">선택입력</option>
-									<option value="">선택입력</option>
-									<option value="">선택입력</option>
-								</select>
-								년
-								<select class="input-sel" style="width:147px">
-									<option value="">선택</option>
-									<option value="">선택입력</option>
-									<option value="">선택입력</option>
-									<option value="">선택입력</option>
-									<option value="">선택입력</option>
-								</select>
-								월
-								<select class="input-sel" style="width:147px">
-									<option value="">선택</option>
-									<option value="">선택입력</option>
-									<option value="">선택입력</option>
-									<option value="">선택입력</option>
-									<option value="">선택입력</option>
-								</select>
-								일
-							</td>
-						</tr> -->
 						<tr id="authEmail" style="display:none;">
 							<th scope="col">이메일주소</th>
 							<td>
 								<input type="text" class="input-text" name="email1" style="width:138px"/> @ <input type="text" name="email2" class="input-text" style="width:138px"/>
-								<select name="emailChnage"class="input-sel" style="width:160px" onChange="getSelectValue(this.form);">
+								<select name="emailChnage"class="input-sel" style="width:160px">
 								<option value="">선택하세요</option>
 								<option value="hanmail.net">hanmail.net</option>
  								<option value="naver.com">naver.com</option>
@@ -101,9 +72,9 @@
 						<tr id="authSmS">
 							<th scope="col">휴대폰번호</th>
 							<td>
-								<input type="text" name="phone1" class="input-text" style="width:138px" maxlength="3"/> -
-								<input type="text" name="phone2"class="input-text" style="width:138px" maxlength="4"/> -
-								<input type="text" name="phone3"class="input-text" style="width:138px" maxlength="4"/>
+								<input type="text" name="phone[]" class="input-text" style="width:138px" maxlength="3"/> -
+								<input type="text" name="phone[]"class="input-text" style="width:138px" maxlength="4"/> -
+								<input type="text" name="phone[]"class="input-text" style="width:138px" maxlength="4"/>
 								<input type="submit" id="smsBtn" class="btn-s-tin ml10" value="인증번호 받기" style="cursor:pointer">
 							</td>
 						</tr>
@@ -121,6 +92,8 @@
 	</div>
 </div>
 <script>
+$(function(){
+
 // 휴대폰 인증 / 이메일 인증 동작
 $("#sms").click(function(){
 	$("#authEmail").hide();
@@ -132,86 +105,54 @@ $("#email").click(function(){
 })
 
 // email 셀렉박스 동작 
-function getSelectValue(frm)
-{
- frm.email2.value = frm.emailChnage.options[frm.emailChnage.selectedIndex].text;
- if(frm.emailChnage.options[frm.emailChnage.selectedIndex].value == user){
-    frm.email2.value = "";
- }
-}
+$("select[name='emailChnage']").change(function () { 
+        var str = "";
+     $("select[name='emailChnage'] option:selected").each(function () { 
+         str += $(this).text() + " "; 
+        }); 
+	 if($("select[name='emailChnage']").val() == 'user'){
+			$("input[name='email2']").val("");
+		 }else{
+			$("input[name='email2']").val(str); 
+		 }
+     })
 
 
-	$("#emailBtn").click(function(){
-	var name = $("input[name='name']").val();
-    var e1 = $("input[name='email1']").val();
-	var e2 = $("input[name='email2']").val();
-	var email = e1+"@"+e2;
-	if(name == '' || e1 == '' || e2 == ''){
-		alert("입력후 시도해주세요");
-		return false;
-	}else{
-		$.ajax({
-		url:"/member/find.php",
-		type:"POST",
-		data:{name:name,email:email}
-	}).done(function(result){
-		alert(result);
-	})
-	}
+$("#emailBtn").click(function(){
+	form();
 	return false;
 })
 
 $("#smsBtn").click(function(){
-	var name = $("input[name='name']").val();
-    var p1 = $("input[name='phone1']").val();
-	var p2 = $("input[name='phone2']").val();
-	var p3 = $("input[name='phone3']").val();
-	var phone = p1 + p2 + p3 ;
-	if(name == '' || name == null){
-		alert("이름을 입력해주세요.");
-		return false;
-	}
-	if(p1 == '' || p1 == null || p2 == '' || p2 == null || p3 == '' || p3 == null){
-		alert("휴대폰 번호를 입력해주세요.");
-		return false;
-	}else{
-		$.ajax({
-		url:"/member/find.php",
-		type:"POST",
-		data:{name:name,phone:phone}
-	}).done(function(result){
-		alert(result);
-	});
-	}
-	
-
+	form();
 	return false;
 })
+
+function form(){
+	var find = $("#findId").serialize();
+	var s;
+	$.post("/member/find.php",
+	        find,
+			function(data){
+		}).done(function(result){
+		//alert(result);
+		return alert(result);
+	});
+}
 
 
 // 인증코드 확인
 $("#confBtn").click(function(){
-	var code = $("input[name='code']").val();
-	var name = $("input[name='name']").val();
-    var p1 = $("input[name='phone1']").val();
-	var p2 = $("input[name='phone2']").val();
-	var p3 = $("input[name='phone3']").val();
-	var name = $("input[name='name']").val();
-    var e1 = $("input[name='email1']").val();
-	var e2 = $("input[name='email2']").val();
-	var email = e1+"@"+e2;
-	var phone = p1 + p2 + p3 ;
-	$.ajax({
-		url:"/member/test.php",
-		type:"POST",
-		data:{code:code,name:name,phone:phone,email:email}
+	var form = $("#findId").serialize();
+	$.post("/member/Controller.php",
+	        form,
+			function(data){
 	}).done(function(result){
-		//alert(result);
+		alert(result);
 		var resultS = result.split(':');
 		//alert(resultS[0]);
 		 if(resultS[0] == 'Y'){
 			alert("일치합니다.");
-			//alert("아이디는 " + resultS[1] + "입니다.");
 			$("#findId").submit();
 			//location.href="/member/index.php?mode=find_id_complete";
 		}else{
@@ -221,5 +162,5 @@ $("#confBtn").click(function(){
 	})
 	return false;
 })
-
+});
 </script>

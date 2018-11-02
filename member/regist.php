@@ -13,7 +13,7 @@
  $dAddr=$_POST['detailAddr'];
  $Rsms = $_POST['sms'];
  $Remail = $_POST{'email'};
-/*  echo $name;
+echo $name;
  echo $id;
  echo $email;
  echo $post;
@@ -21,7 +21,7 @@
  echo $Rsms;
  echo $Remail;
  echo $phone; 
- echo $tel; */
+ echo $tel; 
 // 암호화 
 $pwHash = hash("sha256",$pw);
 //echo "암호화 전 : ".$pw."<br/>";

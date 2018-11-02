@@ -1,8 +1,3 @@
- <?
-//session_start();
-//$_SESSION['prev_refere'] = $_SERVER['HTTP_REFERER'];
-
-?> 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
@@ -35,22 +30,22 @@
 <script type="text/javascript" src="http://q.hackershrd.com/worksheet/js/plugins/bxslider/bxslider.js"></script>
 <script type="text/javascript" src="http://q.hackershrd.com/worksheet/js/ui.js"></script>
 <!--[if lte IE 9]> <script src="/js/common/place_holder.js"></script> <![endif]-->
-</head>
-<body>
+
+</head><body>
 <div class="login-section">
 	<div class="bg"></div>
 	<div class="login-inner">
-		<h1><a href="http://test.hackers.com/member/index.php"><img src="http://img.hackershrd.com/common/logo.png" alt="해커스 HRD LOGO" width="142" height="31"/></a></h1>
+		<h1><a href="/"><img src="http://img.hackershrd.com/common/logo.png" alt="해커스 HRD LOGO" width="142" height="31"/></a></h1>
 		<div class="box-login">
-			<form id="lForm" action="session.php" method="POST" onsubmit="return login();">
+			
 			<div class="login-input">
 				<div class="input-text-box">
-					<input type="text" name="id" class="input-text mb5" placeholder="아이디" style="width:190px"/>
-					<input type="password" name="pw" class="input-text" placeholder="비밀번호" style="width:190px"/>
+					<input type="text" class="input-text mb5" placeholder="아이디" style="width:190px"/>
+					<input type="text" class="input-text" placeholder="비밀번호" style="width:190px"/>
 				</div>
-				<button id="ck" type="submit" class="btn-login">로그인</button>
+				<button type="submit" class="btn-login">로그인</button>
 			</div>
-			</form>
+			
 			<div class="login-chk">
 				<label class="input-sp">
 					<input type="checkbox"/>
@@ -61,8 +56,8 @@
 			</div>
 			
 			<div class="box-btn">
-				<a href="http://test.hackers.com/member/index.php?mode=step_01" class="btn-m-gray">회원가입</a>
-				<a href="http://test.hackers.com/member/index.php?mode=find_id" class="btn-m-gray">ID/PW 찾기</a>
+				<a href="#" class="btn-m-gray">회원가입</a>
+				<a href="#" class="btn-m-gray">ID/PW 찾기</a>
 			</div>
 		</div>
 		<div class="login-guide">
@@ -93,19 +88,4 @@
 	<span class="login-close"><button type="button" class="icon-layer-close"><span class="hidden">닫기</span></button></span>
 </div>
 </body>
-<script>
-function login(){
-/* var id = $("input[name='id']").val();
-var pw = $("input[name='pw']").val(); */
-$("#lForm").serialize();
-  if($("input[name='id']").val() == ""){
-	 alert("아이디가 입력되지않았습니다.");
-	 return false;
- }
- if($("input[name='id']").val() == ""){
-	 alert("비밀번호가 입력되지않았습니다.");
-	 return false;
- } 
-}
-</script>
 </html>

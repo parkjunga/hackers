@@ -4,12 +4,11 @@ session_start();
 $_SESSION['code']='123456';
 $code =$_SESSION['code'];
 include 'db.php';
-$phone = $_POST['phone'];
 $id=$_POST['id'];
 $name = $_POST['name'];
-$email = $_POST['email'];
 $pw = $_POST['pw'];
-
+$email = $_POST['email1'].'@'.$_POST['email2'];
+$phone = $_POST['phone'][0].$_POST['phone'][1].$_POST['phone'][2];
 // 암호
 
 // 비밀번호 체크
